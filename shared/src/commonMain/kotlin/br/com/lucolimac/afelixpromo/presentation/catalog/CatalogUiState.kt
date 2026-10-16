@@ -1,0 +1,61 @@
+package br.com.lucolimac.afelixpromo.presentation.catalog
+
+import br.com.lucolimac.afelixpromo.domain.model.Store
+
+/**
+ * Represents the catalog loading phase shown by the catalog screen.
+ */
+sealed interface CatalogLoadState {
+    /** Catalog data is currently being requested. */
+    data object Loading : CatalogLoadState
+    /** Catalog data could not be loaded; [message] can be shown with a retry action. */
+    data class Failed(
+        /** Human-readable reason that catalog loading failed. */
+        val message: String,
+    ) : CatalogLoadState
+    /** Catalog data was loaded successfully. */
+    data class Loaded(
+        /** Stores and offers returned by the repository. */
+        val stores: List<Store>,
+    ) : CatalogLoadState
+}
+
+/**
+ * Immutable state rendered by the catalog and store-detail screens.
+ *
+ * @property loadState Current catalog loading result.
+ * @property searchQuery Current store search text.
+ * @property selectedStore Store being viewed, or `null` when the catalog is visible.
+ * @property visibleStores Catalog stores matching [searchQuery].
+ */
+data class CatalogUiState(
+    /** Current catalog loading result. */
+    val loadState: CatalogLoadState = CatalogLoadState.Loading,
+    /** Current store search text. */
+    val searchQuery: String = "",
+    /** Store being viewed, or `null` when the catalog is visible. */
+    val selectedStore: Store? = null,
+    /** Catalog stores matching [searchQuery]. */
+    val visibleStores: List<Store> = emptyList(),
+)
+
+/**
+ * One-shot presentation effects that require an external UI or platform action.
+ */
+sealed interface CatalogUiEffect {
+    /** Copies the supplied coupon to the system clipboard. */
+    data class CopyCoupon(
+        /** Exact coupon text to place on the clipboard. */
+        val coupon: String,
+    ) : CatalogUiEffect
+    /** Opens a validated affiliate destination with the platform URL handler. */
+    data class OpenAffiliateLink(
+        /** HTTP(S) destination to open. */
+        val url: String,
+    ) : CatalogUiEffect
+    /** Displays a transient message to the user. */
+    data class ShowMessage(
+        /** Message content to display. */
+        val message: String,
+    ) : CatalogUiEffect
+}
