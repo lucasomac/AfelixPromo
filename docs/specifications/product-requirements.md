@@ -2,6 +2,7 @@
 
 **Status:** especificação inicial do MVP  
 **Plataformas:** Android e iOS, com UI compartilhada em Compose Multiplatform
+**Arquitetura:** MVVM sobre Clean Architecture nas camadas compartilhadas
 
 ## Visão
 
@@ -21,6 +22,7 @@ O AfelixPromo centraliza as lojas parceiras de Bruna Ariane Felix da Silva (Brun
 - Feedback visível após copiar o cupom e indicação clara de que os links podem ser afiliados.
 - Catálogo fornecido como dado local empacotado com o aplicativo. Alterações no catálogo são distribuídas em uma nova versão do app.
 - Aplicativo disponível para Android e iOS, com UI compartilhada.
+- Separação entre apresentação (Compose e ViewModel), domínio (modelos, contratos e casos de uso) e dados (implementações e parsing).
 - Direção visual neutra nesta etapa. A identidade existente será incorporada quando seus materiais forem fornecidos.
 
 ## Fora do escopo do MVP
@@ -47,7 +49,7 @@ O AfelixPromo centraliza as lojas parceiras de Bruna Ariane Felix da Silva (Brun
 
 - O detalhe da loja exibe cada oferta vinculada a ela e os valores/tipos de desconto fornecidos na fonte.
 - O cupom e o desconto são apresentados sem alterar seu significado ou inventar condições não presentes nos dados.
-- Ofertas sem cupom, se existirem no CSV, não exibem uma ação de cópia. A aceitação desse caso será confirmada ao inspecionar o arquivo real.
+- Ofertas sem cupom, se existirem no JSON, não exibem uma ação de cópia. A aceitação desse caso será confirmada ao inspecionar os dados reais.
 
 ### Copiar um cupom
 
@@ -68,7 +70,7 @@ O AfelixPromo centraliza as lojas parceiras de Bruna Ariane Felix da Silva (Brun
 ## Requisitos funcionais
 
 1. **Catálogo:** carregar lojas e ofertas de uma fonte local compartilhada entre Android e iOS.
-2. **Agrupamento:** associar ofertas à loja correspondente usando o nome presente nos dados; regras para nomes duplicados ou variações de escrita dependem da inspeção do CSV.
+2. **Agrupamento:** associar ofertas à loja correspondente usando o nome presente nos dados; regras para nomes duplicados ou variações de escrita dependem da inspeção do JSON.
 3. **Busca:** buscar lojas por nome, sem exigir conta ou conexão com a internet.
 4. **Ações:** copiar o cupom e abrir o link de afiliado como ações distintas.
 5. **Falhas de catálogo:** se os dados locais não puderem ser lidos ou validados, apresentar um estado de erro explícito; não substituir silenciosamente a falha por uma lista vazia.
@@ -83,7 +85,7 @@ O AfelixPromo centraliza as lojas parceiras de Bruna Ariane Felix da Silva (Brun
 
 ## Questões pendentes
 
-- Obter o CSV real e confirmar os cabeçalhos, delimitador, codificação, formatos e valores permitidos.
+- Confirmar se o formato e os valores do JSON atual permanecerão estáveis; a primeira versão deverá rejeitar arquivos incompatíveis em vez de ignorar campos ou registros.
 - Confirmar se uma loja pode ter mais de uma oferta, se o cupom pode ficar vazio e como representar descontos sem cupom.
 - Definir o tratamento de nomes repetidos ou variantes do nome da mesma loja.
 - Confirmar se a fonte de dados terá validade, condições, categorias ou imagens em uma versão futura.

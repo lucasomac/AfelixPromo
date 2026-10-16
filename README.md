@@ -33,6 +33,7 @@ The initial AfelixPromo product, UX/UI, and data architecture specifications are
 - [Product requirements](./docs/specifications/product-requirements.md)
 - [UX/UI flows and screens](./docs/specifications/ux-flows-and-screens.md)
 - [Data and architecture](./docs/specifications/data-and-architecture.md)
+- [Development conventions](./docs/development/code-conventions.md)
 
 ---
 

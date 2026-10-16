@@ -35,6 +35,7 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 - Título de tela com o nome do app, sem exigir um logotipo final.
 - Campo de busca com rótulo acessível, dica para buscar lojas e ação de limpar quando houver texto.
 - Lista de lojas derivada dos dados disponíveis. Cada item precisa ter uma área de toque clara e abrir o detalhe.
+- Exibir o ícone da loja quando o JSON fornecer uma URL; enquanto carrega ou em caso de falha, mostrar um placeholder arredondado com a inicial do nome.
 - Pode ser exibida a quantidade de ofertas por loja, pois ela é derivável do catálogo; não apresentar contagens se os dados ainda não tiverem sido validados.
 - Informação curta sobre links de afiliado, visível nesta tela ou em um elemento persistente de informação acessível.
 
@@ -54,6 +55,8 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 - Ação **Acessar loja** associada ao link específico da oferta.
 - Aviso de transparência sobre links de afiliado, próximo às ações de saída.
 - Navegação de retorno para a lista de lojas conforme os padrões de cada plataforma.
+- No Android, apresentar uma seta de retorno no padrão da plataforma e fazer o botão/gesto de voltar do sistema retornar ao catálogo; no catálogo, manter o comportamento padrão de saída do Android.
+- No iOS, preservar o controle textual de retorno existente.
 
 **Estados e feedback**
 
@@ -66,7 +69,7 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 - Busca inicial por nome de loja; não pesquisar cupons, pois o objetivo selecionado é encontrar a loja primeiro.
 - A busca deve ignorar diferenças entre maiúsculas/minúsculas. Normalização de acentos e regras de correspondência devem ser testadas com nomes reais em português.
 - A ordenação das lojas ainda precisa ser confirmada ao conhecer o catálogo. A ordem alfabética é uma opção inicial previsível, não uma regra de produto aprovada.
-- A tela agrupa ofertas pela loja associada no CSV; a regra para nomes duplicados ou grafias variantes depende da inspeção do arquivo.
+- A tela agrupa ofertas pelo campo `store` do JSON; a regra para grafias variantes depende da fonte.
 
 ## Interação com recursos do sistema
 
@@ -88,5 +91,5 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 
 - Receber logo, cores e tipografia existentes e definir como introduzi-los sem alterar os fluxos.
 - Confirmar ordenação inicial e se a contagem de ofertas será mostrada.
-- Confirmar se o CSV contém lojas sem cupom, ofertas duplicadas ou mais de uma oferta por loja.
+- Confirmar se o JSON terá lojas sem cupom, ofertas duplicadas ou mais de uma oferta por loja.
 - Definir a redação final do aviso de afiliados com a responsável pela marca.
