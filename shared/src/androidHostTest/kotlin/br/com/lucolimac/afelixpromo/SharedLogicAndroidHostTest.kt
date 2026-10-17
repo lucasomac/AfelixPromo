@@ -17,7 +17,7 @@ class SharedLogicAndroidHostTest {
         val json = File("src/commonMain/composeResources/files/catalog.json").readText(StandardCharsets.UTF_8)
         val stores = CatalogJsonParser().parse(json)
 
-        assertEquals(18, stores.sumOf { it.offers.size })
+        assertEquals(19, stores.sumOf { it.offers.size })
         assertEquals(
             "https://www.alvapersonalcare.com.br",
             stores.single { it.name == "Alva" }.offers.single().affiliateUrl,
