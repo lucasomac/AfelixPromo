@@ -9,7 +9,7 @@ interface CatalogRepository {
     /**
      * Loads and groups all available offers by store.
      *
-     * @return Stores in the source's catalog order.
+     * @return Stores with their available offers in the implementation's display order.
      * @throws Exception when the source cannot be read or contains invalid data.
      */
     suspend fun loadStores(): List<Store>

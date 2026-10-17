@@ -4,7 +4,7 @@ Aplicativo de ofertas e cupons de lojas parceiras da Bruna Felix. A primeira ver
 
 ## Funcionalidades
 
-- Pesquise lojas e consulte seus descontos e cupons.
+- Pesquise lojas listadas em ordem alfabética e consulte seus descontos e cupons.
 - Copie um cupom com uma ação e confirmação próprias.
 - Abra a loja pelo link associado à oferta, com indicação de que links podem ser afiliados.
 - Use o layout adaptável: em janelas largas, catálogo e detalhes ficam lado a lado; em janelas compactas, a navegação permanece sequencial.

@@ -32,6 +32,15 @@ internal class CatalogUrlValidator(
     fun normalizeIconUrl(url: String, record: String): String =
         normalizeWebUrl(url, record, "ícone")
 
+    /**
+     * Normalizes a web URL and applies the shared HTTP(S) validation rule.
+     *
+     * @param url Candidate URL, with or without an HTTP(S) scheme.
+     * @param record Record label included in any validation error.
+     * @param kind Human-readable URL purpose included in any validation error.
+     * @return The trimmed URL with HTTPS added when no scheme was supplied.
+     * @throws CatalogFormatException when the URL is malformed or uses a disallowed scheme.
+     */
     private fun normalizeWebUrl(url: String, record: String, kind: String): String {
         val rawUrl = url.trim()
         val normalized = when {

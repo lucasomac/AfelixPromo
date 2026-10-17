@@ -2,6 +2,7 @@ package br.com.lucolimac.afelixpromo.data.catalog
 
 import br.com.lucolimac.afelixpromo.domain.model.Offer
 import br.com.lucolimac.afelixpromo.domain.model.Store
+
 /**
  * Converts Firestore store documents into validated domain models.
  *
@@ -14,7 +15,7 @@ internal class FirestoreCatalogMapper(
      * Maps and validates a complete snapshot of store documents.
      *
      * @param documents Pairs of stable Firestore document IDs and decoded store documents.
-     * @return Stores and offers in their configured display order.
+     * @return Stores ordered alphabetically by name and offers ordered by their `sortOrder`.
      * @throws CatalogFormatException when a document violates the catalog schema.
      */
     fun map(documents: List<Pair<String, FirestoreStoreDocument>>): List<Store> =
@@ -22,9 +23,6 @@ internal class FirestoreCatalogMapper(
             val storeName = document.name.trim()
             if (storeName.isBlank()) {
                 throw CatalogFormatException("A loja '$documentId' não possui nome.")
-            }
-            if (document.sortOrder < 0) {
-                throw CatalogFormatException("A loja '$documentId' possui uma ordem inválida.")
             }
 
             val iconUrl = document.iconUrl
@@ -53,7 +51,7 @@ internal class FirestoreCatalogMapper(
 
             OrderedStore(
                 documentId = documentId,
-                sortOrder = document.sortOrder,
+                alphabeticalName = storeName.alphabeticalSortKey(),
                 store = Store(
                     name = storeName,
                     iconUrl = iconUrl,
@@ -74,28 +72,52 @@ internal class FirestoreCatalogMapper(
                 ),
             )
         }
-            .sortedWith(compareBy<OrderedStore> { it.sortOrder }.thenBy { it.documentId })
+            .sortedWith(
+                compareBy<OrderedStore> { it.alphabeticalName }
+                    .thenBy { it.store.name.lowercase() }
+                    .thenBy { it.documentId },
+            )
             .map(OrderedStore::store)
 
     private data class OrderedStore(
+        /** Stable Firestore ID used to break ties between identically named stores. */
         val documentId: String,
-        val sortOrder: Int,
+        /** Locale-independent lowercase name with common Latin diacritics folded. */
+        val alphabeticalName: String,
+        /** Validated domain model emitted after sorting. */
         val store: Store,
     )
 }
+
+/**
+ * Creates a locale-independent key for alphabetically sorting Portuguese store names.
+ *
+ * @return Lowercase name with common Latin diacritics represented by their base letters.
+ */
+private fun String.alphabeticalSortKey(): String = lowercase().map { character ->
+    when (character) {
+        'á', 'à', 'â', 'ã', 'ä', 'å' -> 'a'
+        'ç' -> 'c'
+        'é', 'è', 'ê', 'ë' -> 'e'
+        'í', 'ì', 'î', 'ï' -> 'i'
+        'ñ' -> 'n'
+        'ó', 'ò', 'ô', 'õ', 'ö' -> 'o'
+        'ú', 'ù', 'û', 'ü' -> 'u'
+        'ý', 'ÿ' -> 'y'
+        else -> character
+    }
+}.joinToString("")
 
 /**
  * Firestore representation of one store document.
  *
  * @property name Store display name.
  * @property iconUrl Optional HTTP(S) store logo.
- * @property sortOrder Stable position in the catalog.
  * @property offers Embedded offers belonging to this store.
  */
 internal data class FirestoreStoreDocument(
     val name: String,
     val iconUrl: String? = null,
-    val sortOrder: Int,
     val offers: List<FirestoreOfferDocument> = emptyList(),
 )
 
@@ -107,7 +129,7 @@ internal data class FirestoreStoreDocument(
  * @property affiliateUrl HTTP(S) destination for the offer.
  * @property discountValue Discount value stored as text to preserve source formatting.
  * @property discountType Meaning of the discount value, as supplied by its source.
- * @property sortOrder Stable position among the store's offers.
+ * @property sortOrder Non-negative position used to control display order within the store.
  */
 internal data class FirestoreOfferDocument(
     val id: String,

@@ -110,7 +110,8 @@ class CatalogViewModel(
                 }
             } catch (exception: CancellationException) {
                 throw exception
-            } catch (_: Exception) {
+            } catch (exception: Exception) {
+                exception.printStackTrace()
                 mutableUiState.update {
                     it.copy(
                         loadState = CatalogLoadState.Failed,

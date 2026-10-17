@@ -23,7 +23,9 @@ O projeto é Kotlin Multiplatform com targets Android e iOS. A UI Compose está 
 | Oferta   | `discount`      | Preservar o valor numérico ou textual da fonte sem inferir moeda.                 |
 | Oferta   | `type`          | Preservar o significado da fonte, por exemplo `Porcentagem` ou `Valor`.           |
 
-Cada objeto JSON representa uma oferta associada a uma loja; objetos com o mesmo nome `store` são agrupados. O importador gera IDs determinísticos a partir do nome normalizado da loja e da posição da oferta na fonte. No Firestore, cada documento `stores/{storeId}` contém os campos `name`, `iconUrl`, `sortOrder` e uma lista `offers`; cada oferta contém `id`, `couponCode`, `affiliateUrl`, `discountValue`, `discountType` e `sortOrder`.
+Cada objeto JSON representa uma oferta associada a uma loja; objetos com o mesmo nome `store` são agrupados. O importador gera IDs determinísticos a partir do nome normalizado da loja e da posição da oferta na fonte. No Firestore, cada documento `stores/{storeId}` contém os campos `name`, `iconUrl` (opcional) e uma lista `offers`; cada oferta contém `id`, `couponCode` (opcional), `affiliateUrl`, `discountValue`, `discountType` e `sortOrder`.
+
+O app ordena as lojas alfabeticamente pelo nome, sem diferenciar maiúsculas/minúsculas e ignorando diacríticos comuns do alfabeto latino; em nomes equivalentes, usa o nome original e o ID Firestore como desempate determinístico. Não é necessário armazenar ordem de exibição nas lojas.
 
 ## Validação e integridade do catálogo
 
@@ -52,7 +54,7 @@ data (repositórios concretos + parser + fontes de dados)
 
 - **Presentation:** `App` e componentes Compose renderizam estado e encaminham eventos. `CatalogViewModel` mantém estado de tela, coordena casos de uso e emite efeitos de UI; não conhece Compose nem APIs de clipboard/URL do sistema. Ícones remotos de loja são carregados na UI multiplataforma e usam placeholder com inicial durante carregamento/erro.
 - **Domain:** modelos independentes de plataforma, `CatalogRepository` (contrato), busca, carregamento e validação de URLs como casos de uso. Não depende de Compose, Firebase ou recursos Android/iOS.
-- **Data:** `FirestoreCatalogRepository` implementa o contrato do domínio. Adaptadores Android e iOS consultam a coleção por seus SDKs Firebase nativos; o mapper comum valida o esquema e converte documentos para modelos de domínio. `CatalogJsonParser` valida a fonte JSON usada pelo importador/testes.
+- **Data:** `FirestoreCatalogRepository` implementa o contrato do domínio. Serviços Android e iOS consultam a coleção por seus SDKs Firebase nativos; o mapper comum valida o esquema e converte documentos para modelos de domínio. `CatalogJsonParser` valida a fonte JSON usada pelo importador/testes.
 - A criação manual do ViewModel e suas dependências ocorre no ponto de composição da aplicação; manter essa composição simples e explícita até existir necessidade de introduzir um framework de injeção de dependências.
 - Efeitos pontuais (copiar cupom, abrir URL, mostrar feedback) são emitidos pelo ViewModel e executados pela UI através de uma interface de ações de plataforma.
 - Falhas de parsing, validação ou carregamento permanecem distintas de um catálogo vazio; a ViewModel expõe estado de erro e a UI oferece retry.
@@ -62,12 +64,13 @@ Implementação atual em `shared/src/commonMain/kotlin/br/com/lucolimac/afelixpr
 
 - `presentation/catalog/`: `CatalogScreen`, `CatalogUiState` e `CatalogViewModel`.
 - `domain/model/`, `domain/repository/` e `domain/usecase/`: regras e contratos independentes de framework.
-- `data/catalog/` e `data/repository/`: parser e validador JSON, mapper Firestore e repositório comum com fontes nativas por plataforma.
+- `data/catalog/`, `data/repository/` e `data/service/`: parser e validador JSON, mapper Firestore, repositório comum e serviços Firebase nativos por plataforma.
 - `App.kt`: ponto de composição que conecta o repositório remoto ao ViewModel; os detalhes de plataforma continuam atrás de `PlatformActions`.
 
 ## Firestore
 
-- O cliente lê a coleção `stores` em uma consulta. A ordenação de lojas e ofertas é definida pelos campos `sortOrder`; IDs são estáveis e não dependem de nomes exibidos na UI.
+- O cliente lê a coleção `stores` em uma consulta. As lojas são ordenadas alfabeticamente pelo nome no mapper comum; ofertas são ordenadas pelo `sortOrder` numérico dentro de cada loja (menor primeiro, com ID como desempate). Esse campo permite definir uma sequência editorial de ofertas sem afetar a ordem alfabética das lojas.
+- O importador grava `sortOrder` somente nas ofertas, seguindo a ordem em que aparecem no JSON. Documentos antigos de loja podem continuar contendo `sortOrder`; o app não o exige nem o usa, e novas importações deixam de gravá-lo.
 - Android usa o SDK Firebase nativo via Gradle; iOS importa FirebaseCore e FirebaseFirestore do Swift Package Manager usando a integração SwiftPM do Kotlin 2.5.0-Beta1 e a integração direta com Xcode. O cache persistente padrão dos SDKs permite leituras offline após a primeira sincronização; sem cache disponível, a falha é exibida e a UI permite tentar novamente.
 - O app é somente leitura. As regras em `firestore.rules` permitem leitura pública dos documentos de catálogo e negam qualquer escrita por clientes.
 - O importador em `tools/firestore/import_catalog.py` usa Application Default Credentials. A execução é uma simulação por padrão; `--apply` confirma a gravação. Não armazenar credenciais administrativas, arquivos de serviço ou configuração Firebase local no repositório.

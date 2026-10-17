@@ -1,17 +1,20 @@
-package br.com.lucolimac.afelixpromo.data.repository
+package br.com.lucolimac.afelixpromo.data.service
 
 import br.com.lucolimac.afelixpromo.data.catalog.CatalogFormatException
 import br.com.lucolimac.afelixpromo.data.catalog.FirestoreOfferDocument
 import br.com.lucolimac.afelixpromo.data.catalog.FirestoreStoreDocument
+import br.com.lucolimac.afelixpromo.data.service.STORES_COLLECTION
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.coroutines.tasks.await
+import kotlin.collections.get
 
 /**
  * Reads store records using the native Android Firebase Firestore SDK.
  *
  * @return Store records from the server or the SDK's persistent local cache.
+ * @throws Exception when Firestore cannot read the collection or a returned document is invalid.
  */
 internal actual suspend fun loadFirestoreStoreDocuments(): List<Pair<String, FirestoreStoreDocument>> {
     FirebaseApp.getInstance()
@@ -37,7 +40,6 @@ private fun DocumentSnapshot.toCatalogRecord(): Pair<String, FirestoreStoreDocum
     return id to FirestoreStoreDocument(
         name = fields.requiredString("name", id),
         iconUrl = fields.optionalString("iconUrl", id),
-        sortOrder = fields.requiredSortOrder("sortOrder", id),
         offers = offers.mapIndexed { index, value ->
             val offer = value as? Map<*, *>
                 ?: throw CatalogFormatException("A oferta ${index + 1} da loja '$id' não é um objeto.")
@@ -48,30 +50,12 @@ private fun DocumentSnapshot.toCatalogRecord(): Pair<String, FirestoreStoreDocum
                 affiliateUrl = offer.requiredString("affiliateUrl", id),
                 discountValue = offer.requiredString("discountValue", id),
                 discountType = offer.requiredString("discountType", id),
-                sortOrder = offer.requiredSortOrder("sortOrder", "$id/$offerId"),
+                sortOrder = requiredSortOrder(
+                    value = (offer["sortOrder"] as? Number)?.toDouble(),
+                    field = "sortOrder",
+                    documentId = "$id/$offerId",
+                ),
             )
         },
     )
 }
-
-private fun Map<*, *>.requiredString(field: String, documentId: String): String =
-    this[field] as? String
-        ?: throw CatalogFormatException("O campo '$field' do documento '$documentId' não é texto.")
-
-private fun Map<*, *>.optionalString(field: String, documentId: String): String? {
-    val value = this[field] ?: return null
-    return value as? String
-        ?: throw CatalogFormatException("O campo '$field' do documento '$documentId' não é texto.")
-}
-
-private fun Map<*, *>.requiredSortOrder(field: String, documentId: String): Int {
-    val value = this[field] as? Number
-        ?: throw CatalogFormatException("O campo '$field' do documento '$documentId' não é numérico.")
-    val intValue = value.toInt()
-    if (value.toDouble() != intValue.toDouble()) {
-        throw CatalogFormatException("O campo '$field' do documento '$documentId' não é um inteiro.")
-    }
-    return intValue
-}
-
-private const val STORES_COLLECTION = "stores"

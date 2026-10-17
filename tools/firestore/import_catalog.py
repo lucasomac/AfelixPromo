@@ -116,7 +116,6 @@ def load_documents(source: Path) -> list[tuple[str, dict[str, object]]]:
         if store_id not in stores:
             store: dict[str, object] = {
                 "name": name,
-                "sortOrder": len(stores),
                 "offers": [],
             }
             if icon_url:
