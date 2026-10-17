@@ -1,15 +1,22 @@
 package br.com.lucolimac.afelixpromo
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,13 +31,14 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import br.com.lucolimac.afelixpromo.data.repository.LocalCatalogRepository
 import br.com.lucolimac.afelixpromo.presentation.catalog.CatalogLoadState
+import br.com.lucolimac.afelixpromo.presentation.catalog.CatalogAdaptiveLayout
 import br.com.lucolimac.afelixpromo.presentation.catalog.CatalogUiEffect
 import br.com.lucolimac.afelixpromo.presentation.catalog.CatalogViewModel
-import br.com.lucolimac.afelixpromo.presentation.catalog.EmptyCatalogMessage
-import br.com.lucolimac.afelixpromo.presentation.catalog.StoreListScreen
-import br.com.lucolimac.afelixpromo.presentation.catalog.StoreOffersScreen
+import br.com.lucolimac.afelixpromo.presentation.catalog.calculateCatalogPaneSizing
+import br.com.lucolimac.afelixpromo.presentation.catalog.calculateFoldedWindowViewport
 import br.com.lucolimac.afelixpromo.presentation.catalog.createCatalogViewModel
 import br.com.lucolimac.afelixpromo.presentation.theme.AfelixPromoTheme
+import br.com.lucolimac.afelixpromo.rememberFoldingFeatureInfo
 import afelixpromo.shared.generated.resources.Res
 import afelixpromo.shared.generated.resources.app_name
 import afelixpromo.shared.generated.resources.affiliate_link_invalid
@@ -90,58 +98,89 @@ fun App() {
     }
 
     AfelixPromoTheme {
-        Scaffold(
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-            topBar = {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .statusBarsPadding()
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    if (uiState.selectedStore != null) {
-                        BackNavigationButton(onClick = catalogViewModel::onBackToCatalog)
-                    }
-                    Text(
-                        text = uiState.selectedStore?.name ?: stringResource(Res.string.app_name),
-                        style = MaterialTheme.typography.headlineSmall,
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+            val foldingFeature = rememberFoldingFeatureInfo()
+            val paneSizing = calculateCatalogPaneSizing(maxWidth, foldingFeature)
+            val foldedViewport = calculateFoldedWindowViewport(maxHeight, foldingFeature)
+
+            Box(modifier = Modifier.fillMaxSize()) {
+                Scaffold(
+                    modifier = foldedViewport?.let { viewport ->
+                        Modifier
+                            .fillMaxWidth()
+                            .height(viewport.height)
+                            .offset(y = viewport.topOffset)
+                    } ?: Modifier.fillMaxSize(),
+                    snackbarHost = { SnackbarHost(snackbarHostState) },
+                    topBar = {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .statusBarsPadding()
+                                .padding(vertical = 12.dp)
+                                .then(
+                                    if (paneSizing == null) {
+                                        Modifier.padding(horizontal = 16.dp)
+                                    } else {
+                                        Modifier
+                                    },
+                                ),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            if (paneSizing == null) {
+                                if (uiState.selectedStore != null) {
+                                    BackNavigationButton(onClick = catalogViewModel::onBackToCatalog)
+                                }
+                                Text(
+                                    text = uiState.selectedStore?.name ?: stringResource(Res.string.app_name),
+                                    style = MaterialTheme.typography.headlineSmall,
+                                )
+                            } else {
+                                Box(
+                                    modifier = Modifier.width(paneSizing.listWidth).padding(start = 16.dp),
+                                    contentAlignment = Alignment.CenterStart,
+                                ) {
+                                    Text(
+                                        text = stringResource(Res.string.app_name),
+                                        style = MaterialTheme.typography.headlineSmall,
+                                    )
+                                }
+                                if (paneSizing.isHingeGap) {
+                                    Spacer(Modifier.width(paneSizing.foldGap))
+                                } else {
+                                    VerticalDivider(modifier = Modifier.height(32.dp))
+                                }
+                                Row(
+                                    modifier = Modifier.width(paneSizing.detailWidth).padding(start = 16.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    uiState.selectedStore?.let { store ->
+                                        BackNavigationButton(onClick = catalogViewModel::onBackToCatalog)
+                                        Text(
+                                            text = store.name,
+                                            style = MaterialTheme.typography.headlineSmall,
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    },
+                ) { contentPadding ->
+                    val loadedState = uiState.loadState as? CatalogLoadState.Loaded
+                    CatalogAdaptiveLayout(
+                        loadState = uiState.loadState,
+                        selectedStore = uiState.selectedStore,
+                        stores = uiState.visibleStores,
+                        hasStores = loadedState?.stores?.isNotEmpty() == true,
+                        searchQuery = uiState.searchQuery,
+                        paneSizing = paneSizing,
+                        onSearchQueryChange = catalogViewModel::onSearchQueryChange,
+                        onStoreSelected = catalogViewModel::onStoreSelected,
+                        onCopyCoupon = catalogViewModel::onCopyCoupon,
+                        onOpenStore = catalogViewModel::onOpenAffiliateLink,
+                        onRetry = catalogViewModel::onRetry,
+                        modifier = Modifier.fillMaxSize().padding(contentPadding),
                     )
-                }
-            },
-        ) { contentPadding ->
-            when (val state = uiState.loadState) {
-                CatalogLoadState.Loading -> EmptyCatalogMessage(
-                    title = stringResource(Res.string.catalog_loading_title),
-                    message = stringResource(Res.string.loading_please_wait),
-                    modifier = Modifier.padding(contentPadding),
-                )
-                is CatalogLoadState.Failed -> EmptyCatalogMessage(
-                    title = stringResource(Res.string.catalog_load_error_title),
-                    message = stringResource(Res.string.catalog_load_error_message),
-                    action = catalogViewModel::onRetry,
-                    actionLabel = stringResource(Res.string.retry),
-                    modifier = Modifier.padding(contentPadding),
-                )
-                is CatalogLoadState.Loaded -> {
-                    val store = uiState.selectedStore
-                    if (store == null) {
-                        StoreListScreen(
-                            stores = uiState.visibleStores,
-                            hasStores = state.stores.isNotEmpty(),
-                            searchQuery = uiState.searchQuery,
-                            onSearchQueryChange = catalogViewModel::onSearchQueryChange,
-                            onStoreSelected = catalogViewModel::onStoreSelected,
-                            modifier = Modifier.fillMaxSize().padding(contentPadding),
-                        )
-                    } else {
-                        StoreOffersScreen(
-                            store = store,
-                            onCopyCoupon = catalogViewModel::onCopyCoupon,
-                            onOpenStore = catalogViewModel::onOpenAffiliateLink,
-                            modifier = Modifier.fillMaxSize().padding(contentPadding),
-                        )
-                    }
                 }
             }
         }

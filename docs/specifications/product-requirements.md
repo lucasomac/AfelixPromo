@@ -22,6 +22,7 @@ O AfelixPromo centraliza as lojas parceiras de Bruna Ariane Felix da Silva (Brun
 - Feedback visível após copiar o cupom e indicação clara de que os links podem ser afiliados.
 - Catálogo fornecido como dado local empacotado com o aplicativo. Alterações no catálogo são distribuídas em uma nova versão do app.
 - Aplicativo disponível para Android e iOS, com UI compartilhada.
+- Layout adaptável a janelas compactas e largas, incluindo tablets e dobráveis; em telas largas, catálogo e detalhe podem permanecer visíveis em painéis separados.
 - Separação entre apresentação (Compose e ViewModel), domínio (modelos, contratos e casos de uso) e dados (implementações e parsing).
 - Tema compartilhado baseado na paleta da logo da AfelixPromo, com tipografia sans-serif multiplataforma até que uma fonte de marca seja fornecida.
 

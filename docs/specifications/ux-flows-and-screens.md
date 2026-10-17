@@ -58,6 +58,16 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 - No Android, apresentar uma seta de retorno no padrão da plataforma e fazer o botão/gesto de voltar do sistema retornar ao catálogo; no catálogo, manter o comportamento padrão de saída do Android.
 - No iOS, preservar o controle textual de retorno existente.
 
+## Layout em tablets e dobráveis
+
+- A adaptação usa a largura útil da janela, não o nome ou modelo do dispositivo.
+- Em janelas compactas, preservar o fluxo atual: catálogo e detalhe em telas consecutivas.
+- A partir de 640 dp, mostrar catálogo persistente à esquerda e detalhe à direita, desde que cada painel tenha ao menos 280 dp e 320 dp, respectivamente; isso inclui a tela interna de dobráveis abertos quando ambos os painéis couberem.
+- Em dobráveis com dobra vertical separadora, manter a área da dobra livre e usar a lista e o detalhe nos painéis físicos quando ambos couberem; caso contrário, usar o fluxo compacto.
+- Em dobráveis com dobra horizontal separadora, não usar painéis lado a lado nem renderizar conteúdo sobre a dobra; exibir a tela na maior das duas regiões disponíveis.
+- Redimensionamento, rotação, multitarefa e mudança de postura preservam busca e loja selecionada no ViewModel; a seleção continua retornável nos dois modos.
+- Validar também janelas médias, orientação paisagem, estados vazios, escala de fonte e rolagem independente de lista e detalhe.
+
 **Estados e feedback**
 
 - Confirmação de cópia via mensagem acessível (por exemplo, snackbar) e anúncio para leitor de tela.

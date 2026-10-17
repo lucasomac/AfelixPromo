@@ -19,6 +19,8 @@
     <string name="affiliate_link_opening">Abrindo a loja</string>
     <string name="affiliate_link_open_failed">Não foi possível abrir esta oferta.</string>
     <string name="offers_available">Ofertas disponíveis</string>
+    <string name="select_store_title">Selecione uma loja</string>
+    <string name="select_store_message">Escolha uma loja na lista para ver as ofertas disponíveis.</string>
     <string name="offers_empty_title">Nenhuma oferta disponível</string>
     <string name="offers_empty_message">Volte em breve para conferir as ofertas desta loja.</string>
     <string name="discount_label">Desconto: %1$s</string>
