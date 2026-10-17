@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
+import br.com.lucolimac.afelixpromo.shared.R
 
 /**
  * Remembers Android clipboard and URL actions using the current context.
@@ -22,7 +23,7 @@ actual fun rememberPlatformActions(): PlatformActions {
             /** Writes plain text to Android's primary clipboard. */
             override fun copyToClipboard(text: String) {
                 val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                clipboard.setPrimaryClip(ClipData.newPlainText("AfelixPromo", text))
+                clipboard.setPrimaryClip(ClipData.newPlainText(context.getString(R.string.clipboard_label), text))
             }
 
             /** Launches an Android view intent and reports whether it was accepted. */

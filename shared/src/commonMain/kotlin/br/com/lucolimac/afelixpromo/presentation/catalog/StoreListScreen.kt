@@ -18,6 +18,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import afelixpromo.shared.generated.resources.Res
+import afelixpromo.shared.generated.resources.affiliate_disclosure
+import afelixpromo.shared.generated.resources.catalog_empty_message
+import afelixpromo.shared.generated.resources.catalog_empty_title
+import afelixpromo.shared.generated.resources.catalog_intro
+import afelixpromo.shared.generated.resources.clear_search
+import afelixpromo.shared.generated.resources.offer_count
+import afelixpromo.shared.generated.resources.search_empty_message
+import afelixpromo.shared.generated.resources.search_empty_title
+import afelixpromo.shared.generated.resources.search_stores
+import org.jetbrains.compose.resources.pluralStringResource
+import org.jetbrains.compose.resources.stringResource
 import br.com.lucolimac.afelixpromo.domain.model.Store
 
 /**
@@ -44,36 +56,36 @@ internal fun StoreListScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
-            text = "Encontre uma loja e descubra seus cupons.",
+            text = stringResource(Res.string.catalog_intro),
             style = MaterialTheme.typography.bodyLarge,
         )
         OutlinedTextField(
             value = searchQuery,
             onValueChange = onSearchQueryChange,
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Buscar lojas") },
+            label = { Text(stringResource(Res.string.search_stores)) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             trailingIcon = {
                 if (searchQuery.isNotEmpty()) {
                     TextButton(onClick = { onSearchQueryChange("") }) {
-                        Text("Limpar")
+                        Text(stringResource(Res.string.clear_search))
                     }
                 }
             },
         )
         Text(
-            text = "Alguns links podem ser de afiliados. Isso pode gerar uma comissão sem custo extra para você.",
+            text = stringResource(Res.string.affiliate_disclosure),
             style = MaterialTheme.typography.bodySmall,
         )
         when {
             !hasStores -> EmptyCatalogMessage(
-                title = "Estamos preparando o catálogo",
-                message = "As lojas e ofertas estarão disponíveis aqui em breve.",
+                title = stringResource(Res.string.catalog_empty_title),
+                message = stringResource(Res.string.catalog_empty_message),
             )
             stores.isEmpty() -> EmptyCatalogMessage(
-                title = "Nenhuma loja encontrada",
-                message = "Tente outro nome ou limpe sua busca.",
+                title = stringResource(Res.string.search_empty_title),
+                message = stringResource(Res.string.search_empty_message),
             )
             else -> LazyColumn(
                 modifier = Modifier.fillMaxWidth(),
@@ -96,7 +108,11 @@ internal fun StoreListScreen(
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(store.name, style = MaterialTheme.typography.titleMedium)
                                 Text(
-                                    text = "${store.offers.size} ofertas",
+                                    text = pluralStringResource(
+                                        Res.plurals.offer_count,
+                                        store.offers.size,
+                                        store.offers.size,
+                                    ),
                                     style = MaterialTheme.typography.bodyMedium,
                                 )
                             }

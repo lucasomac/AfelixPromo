@@ -6,7 +6,7 @@
 - **Ação explícita:** copiar o cupom e abrir a loja são controles separados, com rótulos claros.
 - **Transparência:** informar que os links podem gerar comissão para Bruna Felix sem esconder essa informação em uma tela distante.
 - **Fidelidade aos dados:** mostrar apenas desconto, cupom e destino recebidos da fonte; não sugerir validade ou condições que não foram fornecidas.
-- **Base neutra:** usar componentes Compose Material 3 e um tema neutro temporário. Não escolher cores, tipografia de marca, logotipo ou ilustrações até receber a identidade existente.
+- **Identidade visual:** usar a paleta de azul-marinho, roxo, dourado e magenta extraída da logo da AfelixPromo, aplicada por um tema Material 3 compartilhado. A tipografia usa sans-serif multiplataforma até que uma fonte de marca seja fornecida.
 
 ## Arquitetura de informação
 
@@ -80,7 +80,7 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 
 ## Diretrizes visuais e acessibilidade
 
-- Usar componentes Material 3 compartilhados e espaçamento consistente; manter a paleta neutra e temporária até receber os materiais da marca.
+- Usar componentes Material 3 compartilhados, espaçamento consistente e o tema da marca definido em `presentation/theme/`; oferecer esquemas claro e escuro com contraste adequado.
 - Não depender apenas de cor, ícones ou movimento para transmitir estado ou ação.
 - Usar semântica e rótulos apropriados para busca, cópia, abertura de link e feedback.
 - Preservar contraste de texto e estados de foco/seleção, suportar ampliação de fonte e não truncar cupom ou informação essencial.
@@ -89,7 +89,7 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 
 ## Decisões em aberto
 
-- Receber logo, cores e tipografia existentes e definir como introduzi-los sem alterar os fluxos.
+- Confirmar se existe uma fonte de marca a incorporar futuramente sem alterar os fluxos.
 - Confirmar ordenação inicial e se a contagem de ofertas será mostrada.
 - Confirmar se o JSON terá lojas sem cupom, ofertas duplicadas ou mais de uma oferta por loja.
 - Definir a redação final do aviso de afiliados com a responsável pela marca.

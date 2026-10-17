@@ -23,7 +23,7 @@ O AfelixPromo centraliza as lojas parceiras de Bruna Ariane Felix da Silva (Brun
 - Catálogo fornecido como dado local empacotado com o aplicativo. Alterações no catálogo são distribuídas em uma nova versão do app.
 - Aplicativo disponível para Android e iOS, com UI compartilhada.
 - Separação entre apresentação (Compose e ViewModel), domínio (modelos, contratos e casos de uso) e dados (implementações e parsing).
-- Direção visual neutra nesta etapa. A identidade existente será incorporada quando seus materiais forem fornecidos.
+- Tema compartilhado baseado na paleta da logo da AfelixPromo, com tipografia sans-serif multiplataforma até que uma fonte de marca seja fornecida.
 
 ## Fora do escopo do MVP
 
@@ -89,5 +89,5 @@ O AfelixPromo centraliza as lojas parceiras de Bruna Ariane Felix da Silva (Brun
 - Confirmar se uma loja pode ter mais de uma oferta, se o cupom pode ficar vazio e como representar descontos sem cupom.
 - Definir o tratamento de nomes repetidos ou variantes do nome da mesma loja.
 - Confirmar se a fonte de dados terá validade, condições, categorias ou imagens em uma versão futura.
-- Receber os materiais existentes da identidade visual.
+- Confirmar se existe uma fonte de marca a incorporar futuramente.
 - Definir critérios de publicação e atualização do catálogo local.

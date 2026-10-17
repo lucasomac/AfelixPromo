@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import afelixpromo.shared.generated.resources.Res
+import afelixpromo.shared.generated.resources.back
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Displays an Android-style arrow control to return to the previous app screen.
@@ -17,9 +20,10 @@ import androidx.compose.ui.semantics.semantics
  */
 @Composable
 actual fun BackNavigationButton(onClick: () -> Unit) {
+    val backLabel = stringResource(Res.string.back)
     IconButton(
         onClick = onClick,
-        modifier = Modifier.semantics { contentDescription = "Voltar" },
+        modifier = Modifier.semantics { contentDescription = backLabel },
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowBack,

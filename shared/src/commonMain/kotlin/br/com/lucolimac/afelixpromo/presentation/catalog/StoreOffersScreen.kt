@@ -13,7 +13,18 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import afelixpromo.shared.generated.resources.Res
+import afelixpromo.shared.generated.resources.affiliate_link_disclosure
+import afelixpromo.shared.generated.resources.copy_coupon
+import afelixpromo.shared.generated.resources.coupon_label
+import afelixpromo.shared.generated.resources.discount_label
+import afelixpromo.shared.generated.resources.offers_available
+import afelixpromo.shared.generated.resources.offers_empty_message
+import afelixpromo.shared.generated.resources.offers_empty_title
+import afelixpromo.shared.generated.resources.open_store
+import org.jetbrains.compose.resources.stringResource
 import br.com.lucolimac.afelixpromo.domain.model.Offer
 import br.com.lucolimac.afelixpromo.domain.model.Store
 import br.com.lucolimac.afelixpromo.domain.model.discountLabel
@@ -38,13 +49,13 @@ internal fun StoreOffersScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
-            text = "Ofertas disponíveis",
+            text = stringResource(Res.string.offers_available),
             style = MaterialTheme.typography.titleMedium,
         )
         if (store.offers.isEmpty()) {
             EmptyCatalogMessage(
-                title = "Nenhuma oferta disponível",
-                message = "Volte em breve para conferir as ofertas desta loja.",
+                title = stringResource(Res.string.offers_empty_title),
+                message = stringResource(Res.string.offers_empty_message),
             )
         } else {
             LazyColumn(
@@ -82,26 +93,26 @@ private fun OfferCard(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             Text(
-                text = "Desconto: ${offer.discountLabel()}",
-                style = MaterialTheme.typography.titleMedium,
+                text = stringResource(Res.string.discount_label, offer.discountLabel()),
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
             )
             offer.couponCode?.takeIf(String::isNotBlank)?.let { coupon ->
-                Text("Cupom: $coupon")
+                Text(stringResource(Res.string.coupon_label, coupon))
                 OutlinedButton(
                     onClick = { onCopyCoupon(offer) },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text("Copiar cupom")
+                    Text(stringResource(Res.string.copy_coupon))
                 }
             }
             Button(
                 onClick = { onOpenStore(offer) },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("Acessar loja")
+                Text(stringResource(Res.string.open_store))
             }
             Text(
-                text = "Este link pode ser de afiliado.",
+                text = stringResource(Res.string.affiliate_link_disclosure),
                 style = MaterialTheme.typography.bodySmall,
             )
         }

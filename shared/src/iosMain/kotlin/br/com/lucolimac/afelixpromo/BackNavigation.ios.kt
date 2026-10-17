@@ -3,6 +3,9 @@ package br.com.lucolimac.afelixpromo
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import afelixpromo.shared.generated.resources.Res
+import afelixpromo.shared.generated.resources.back
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Preserves the existing text-based return control on iOS.
@@ -12,7 +15,7 @@ import androidx.compose.runtime.Composable
 @Composable
 actual fun BackNavigationButton(onClick: () -> Unit) {
     TextButton(onClick = onClick) {
-        Text("Voltar")
+        Text(stringResource(Res.string.back))
     }
 }
 

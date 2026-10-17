@@ -12,7 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import afelixpromo.shared.generated.resources.Res
+import afelixpromo.shared.generated.resources.store_icon_content_description
+import afelixpromo.shared.generated.resources.unknown_store_initial
 import coil3.compose.SubcomposeAsyncImage
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Shows a store's remote icon, falling back to a rounded initial badge.
@@ -28,14 +32,14 @@ internal fun StoreIcon(
     val iconModifier = Modifier
         .size(48.dp)
         .clip(CircleShape)
-    val initial = storeName.trim().firstOrNull()?.uppercase() ?: "?"
+    val initial = storeName.trim().firstOrNull()?.uppercase() ?: stringResource(Res.string.unknown_store_initial)
 
     if (iconUrl.isNullOrBlank()) {
         StoreInitialPlaceholder(initial, iconModifier)
     } else {
         SubcomposeAsyncImage(
             model = iconUrl,
-            contentDescription = "Ícone da loja $storeName",
+            contentDescription = stringResource(Res.string.store_icon_content_description, storeName),
             modifier = iconModifier,
             contentScale = ContentScale.Crop,
             loading = { StoreInitialPlaceholder(initial, Modifier.size(48.dp)) },

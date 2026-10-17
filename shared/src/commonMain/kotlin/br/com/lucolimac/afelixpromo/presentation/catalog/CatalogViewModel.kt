@@ -87,17 +87,13 @@ class CatalogViewModel(
         if (validateAffiliateUrl(offer.affiliateUrl)) {
             emitEffect(CatalogUiEffect.OpenAffiliateLink(offer.affiliateUrl))
         } else {
-            emitEffect(CatalogUiEffect.ShowMessage("O link desta oferta é inválido."))
+            emitEffect(CatalogUiEffect.AffiliateLinkInvalid)
         }
     }
 
     /** Reports the result of the platform's attempt to open an affiliate link. */
     fun onAffiliateLinkOpenResult(opened: Boolean) {
-        emitEffect(
-            CatalogUiEffect.ShowMessage(
-                if (opened) "Abrindo a loja" else "Não foi possível abrir esta oferta.",
-            ),
-        )
+        emitEffect(CatalogUiEffect.AffiliateLinkOpenResult(opened))
     }
 
     /** Loads the catalog and updates success, loading, or failure state. */
@@ -114,12 +110,10 @@ class CatalogViewModel(
                 }
             } catch (exception: CancellationException) {
                 throw exception
-            } catch (exception: Exception) {
+            } catch (_: Exception) {
                 mutableUiState.update {
                     it.copy(
-                        loadState = CatalogLoadState.Failed(
-                            exception.message ?: "Ocorreu um erro inesperado ao carregar o catálogo.",
-                        ),
+                        loadState = CatalogLoadState.Failed,
                     )
                 }
             }

@@ -10,7 +10,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -32,6 +30,20 @@ import br.com.lucolimac.afelixpromo.presentation.catalog.EmptyCatalogMessage
 import br.com.lucolimac.afelixpromo.presentation.catalog.StoreListScreen
 import br.com.lucolimac.afelixpromo.presentation.catalog.StoreOffersScreen
 import br.com.lucolimac.afelixpromo.presentation.catalog.createCatalogViewModel
+import br.com.lucolimac.afelixpromo.presentation.theme.AfelixPromoTheme
+import afelixpromo.shared.generated.resources.Res
+import afelixpromo.shared.generated.resources.app_name
+import afelixpromo.shared.generated.resources.affiliate_link_invalid
+import afelixpromo.shared.generated.resources.affiliate_link_open_failed
+import afelixpromo.shared.generated.resources.affiliate_link_opening
+import afelixpromo.shared.generated.resources.catalog_load_error_message
+import afelixpromo.shared.generated.resources.catalog_load_error_title
+import afelixpromo.shared.generated.resources.catalog_loading_title
+import afelixpromo.shared.generated.resources.coupon_copied
+import afelixpromo.shared.generated.resources.loading_please_wait
+import afelixpromo.shared.generated.resources.retry
+import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Root composable that connects the catalog ViewModel to the shared UI and platform actions.
@@ -58,26 +70,26 @@ fun App() {
             when (effect) {
                 is CatalogUiEffect.CopyCoupon -> {
                     platformActions.copyToClipboard(effect.coupon)
-                    snackbarHostState.showSnackbar("Cupom copiado")
+                    snackbarHostState.showSnackbar(getString(Res.string.coupon_copied))
                 }
                 is CatalogUiEffect.OpenAffiliateLink -> {
                     platformActions.openUrl(effect.url, catalogViewModel::onAffiliateLinkOpenResult)
                 }
-                is CatalogUiEffect.ShowMessage -> snackbarHostState.showSnackbar(effect.message)
+                is CatalogUiEffect.AffiliateLinkInvalid ->
+                    snackbarHostState.showSnackbar(getString(Res.string.affiliate_link_invalid))
+                is CatalogUiEffect.AffiliateLinkOpenResult -> {
+                    val message = if (effect.opened) {
+                        getString(Res.string.affiliate_link_opening)
+                    } else {
+                        getString(Res.string.affiliate_link_open_failed)
+                    }
+                    snackbarHostState.showSnackbar(message)
+                }
             }
         }
     }
 
-    MaterialTheme(
-        colorScheme = lightColorScheme(
-            primary = Color(0xFF39434E),
-            secondary = Color(0xFF59646D),
-            background = Color(0xFFFAFAF8),
-            surface = Color(0xFFFFFFFF),
-            onPrimary = Color(0xFFFFFFFF),
-            onSurface = Color(0xFF202326),
-        ),
-    ) {
+    AfelixPromoTheme {
         Scaffold(
             snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
@@ -92,7 +104,7 @@ fun App() {
                         BackNavigationButton(onClick = catalogViewModel::onBackToCatalog)
                     }
                     Text(
-                        text = uiState.selectedStore?.name ?: "AfelixPromo",
+                        text = uiState.selectedStore?.name ?: stringResource(Res.string.app_name),
                         style = MaterialTheme.typography.headlineSmall,
                     )
                 }
@@ -100,15 +112,15 @@ fun App() {
         ) { contentPadding ->
             when (val state = uiState.loadState) {
                 CatalogLoadState.Loading -> EmptyCatalogMessage(
-                    title = "Carregando catálogo",
-                    message = "Só um instante.",
+                    title = stringResource(Res.string.catalog_loading_title),
+                    message = stringResource(Res.string.loading_please_wait),
                     modifier = Modifier.padding(contentPadding),
                 )
                 is CatalogLoadState.Failed -> EmptyCatalogMessage(
-                    title = "Não foi possível carregar o catálogo",
-                    message = state.message,
+                    title = stringResource(Res.string.catalog_load_error_title),
+                    message = stringResource(Res.string.catalog_load_error_message),
                     action = catalogViewModel::onRetry,
-                    actionLabel = "Tentar novamente",
+                    actionLabel = stringResource(Res.string.retry),
                     modifier = Modifier.padding(contentPadding),
                 )
                 is CatalogLoadState.Loaded -> {

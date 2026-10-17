@@ -8,11 +8,8 @@ import br.com.lucolimac.afelixpromo.domain.model.Store
 sealed interface CatalogLoadState {
     /** Catalog data is currently being requested. */
     data object Loading : CatalogLoadState
-    /** Catalog data could not be loaded; [message] can be shown with a retry action. */
-    data class Failed(
-        /** Human-readable reason that catalog loading failed. */
-        val message: String,
-    ) : CatalogLoadState
+    /** Catalog data could not be loaded; the screen offers a localized retry action. */
+    data object Failed : CatalogLoadState
     /** Catalog data was loaded successfully. */
     data class Loaded(
         /** Stores and offers returned by the repository. */
@@ -53,9 +50,11 @@ sealed interface CatalogUiEffect {
         /** HTTP(S) destination to open. */
         val url: String,
     ) : CatalogUiEffect
-    /** Displays a transient message to the user. */
-    data class ShowMessage(
-        /** Message content to display. */
-        val message: String,
+    /** Reports an affiliate link that failed validation before opening. */
+    data object AffiliateLinkInvalid : CatalogUiEffect
+    /** Reports the result of handing an affiliate link to the operating system. */
+    data class AffiliateLinkOpenResult(
+        /** Whether the platform accepted the request to open the destination. */
+        val opened: Boolean,
     ) : CatalogUiEffect
 }
