@@ -26,10 +26,9 @@ kotlin {
     }
     swiftPMDependencies {
         discoverClangModulesImplicitly = false
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        swiftPackage(
+        @OptIn(ExperimentalKotlinGradlePluginApi::class) swiftPackage(
             url = url("https://github.com/firebase/firebase-ios-sdk.git"),
-            version = from("12.5.0"),
+            version = from("13.0.1"),
             products = listOf(
                 product("FirebaseCore"),
                 product("FirebaseFirestore"),
@@ -37,28 +36,28 @@ kotlin {
             importedClangModules = listOf("FirebaseCore", "FirebaseFirestoreInternal"),
         )
     }
-    
+
     android {
-       namespace = "br.com.lucolimac.afelixpromo.shared"
-       compileSdk = libs.versions.android.compileSdk.get().toInt()
-       minSdk = libs.versions.android.minSdk.get().toInt()
-    
-       compilerOptions {
-           jvmTarget = JvmTarget.JVM_11
-       }
-       androidResources {
-           enable = true
-       }
-       withHostTest {
-           isIncludeAndroidResources = true
-       }
-       withDeviceTestBuilder {
-           sourceSetTreeName = "test"
-       }.configure {
-           instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-       }
+        namespace = "br.com.lucolimac.afelixpromo.shared"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
+        }
+        androidResources {
+            enable = true
+        }
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
+        withDeviceTestBuilder {
+            sourceSetTreeName = "test"
+        }.configure {
+            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        }
     }
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)

@@ -15,7 +15,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/firebase/firebase-ios-sdk.git",
-      from: "12.5.0"
+      from: "13.0.1"
     )
   ],
   targets: [

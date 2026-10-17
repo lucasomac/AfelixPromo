@@ -15,7 +15,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8B11EF320699D141E55D6123 /* Exceptions for "iosApp" folder in "iosApp" target */ = {
+		8B11EF320699D141E55D6123 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -27,8 +27,6 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A5C376A567811F0D73FFD7F4 /* Configuration */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			explicitFileTypes = {
 			};
 			explicitFolders = (
@@ -39,7 +37,7 @@
 		C67F98988E13DBF5ABCE07D5 /* iosApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				8B11EF320699D141E55D6123 /* Exceptions for "iosApp" folder in "iosApp" target */,
+				8B11EF320699D141E55D6123 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
 			);
 			explicitFileTypes = {
 			};
@@ -347,7 +345,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
