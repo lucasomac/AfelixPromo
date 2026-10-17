@@ -17,6 +17,8 @@ import kotlinx.serialization.json.JsonPrimitive
 class CatalogJsonParser(
     private val validateAffiliateUrl: ValidateAffiliateUrlUseCase = ValidateAffiliateUrlUseCase(),
 ) {
+    private val urlValidator = CatalogUrlValidator(validateAffiliateUrl)
+
     /** Strict decoder that rejects JSON fields not represented by the DTO. */
     private val json = Json {
         ignoreUnknownKeys = false
@@ -50,16 +52,18 @@ class CatalogJsonParser(
             if (entry.type.isBlank()) {
                 throw CatalogFormatException("A oferta ${index + 1} não possui tipo de desconto.")
             }
-            val affiliateUrl = entry.url.toSafeAffiliateUrl(index + 1)
+            val affiliateUrl = urlValidator.normalizeAffiliateUrl(entry.url, "oferta ${index + 1}")
             val normalizedEntry = entry.copy(
                 store = storeName,
                 url = affiliateUrl,
-                icon = entry.icon?.trim()?.takeIf(String::isNotEmpty)?.toSafeIconUrl(index + 1),
+                icon = entry.icon?.trim()?.takeIf(String::isNotEmpty)?.let {
+                    urlValidator.normalizeIconUrl(it, "oferta ${index + 1}")
+                },
             )
             offersByStore.getOrPut(storeName) { mutableListOf() } += normalizedEntry
         }
 
-        return offersByStore.map { (storeName, storeEntries) ->
+        return offersByStore.map { [storeName, storeEntries] ->
             Store(
                 name = storeName,
                 iconUrl = storeEntries.firstNotNullOfOrNull { it.icon },
@@ -74,48 +78,6 @@ class CatalogJsonParser(
                 },
             )
         }
-    }
-
-    /**
-     * Normalizes a missing web scheme and rejects invalid or non-HTTP(S) links.
-     *
-     * @param rowNumber One-based offer number used in validation errors.
-     * @return A validated HTTP(S) URL.
-     */
-    private fun String.toSafeAffiliateUrl(rowNumber: Int): String {
-        val rawUrl = trim()
-        val normalized = when {
-            rawUrl.startsWith("http://", ignoreCase = true) ||
-                rawUrl.startsWith("https://", ignoreCase = true) -> rawUrl
-            "://" in rawUrl -> throw CatalogFormatException(
-                "O link da oferta $rowNumber usa um esquema não permitido.",
-            )
-            else -> "https://$rawUrl"
-        }
-        if (!validateAffiliateUrl(normalized)) {
-            throw CatalogFormatException("O link da oferta $rowNumber não é uma URL HTTP(S) válida.")
-        }
-        return normalized
-    }
-
-    /**
-     * Validates an optional icon URL while preserving empty icon values as absent.
-     *
-     * @param rowNumber One-based offer number used in validation errors.
-     * @return A validated HTTP(S) icon URL.
-     */
-    private fun String.toSafeIconUrl(rowNumber: Int): String {
-        val normalized = if (startsWith("http://", true) || startsWith("https://", true)) {
-            this
-        } else if ("://" in this) {
-            throw CatalogFormatException("O ícone da oferta $rowNumber usa um esquema não permitido.")
-        } else {
-            "https://$this"
-        }
-        if (!validateAffiliateUrl(normalized)) {
-            throw CatalogFormatException("O ícone da oferta $rowNumber não é uma URL HTTP(S) válida.")
-        }
-        return normalized
     }
 
     /**

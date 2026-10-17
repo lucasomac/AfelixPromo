@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,15 +9,33 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
 }
 
+group = "br.com.lucolimac.afelixpromo"
+
+compose.resources {
+    packageOfResClass = "afelixpromo.shared.generated.resources"
+}
+
 kotlin {
-    listOf(
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
+    val iosArm64Target = iosArm64()
+    val iosSimulatorArm64Target = iosSimulatorArm64()
+    listOf(iosArm64Target, iosSimulatorArm64Target).forEach { target ->
+        target.binaries.framework {
             baseName = "Shared"
             isStatic = true
         }
+    }
+    swiftPMDependencies {
+        discoverClangModulesImplicitly = false
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        swiftPackage(
+            url = url("https://github.com/firebase/firebase-ios-sdk.git"),
+            version = from("12.5.0"),
+            products = listOf(
+                product("FirebaseCore"),
+                product("FirebaseFirestore"),
+            ),
+            importedClangModules = listOf("FirebaseCore", "FirebaseFirestoreInternal"),
+        )
     }
     
     android {
@@ -48,6 +67,8 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.uiTooling)
             implementation(libs.ktor.client.android)
+            implementation(libs.firebase.firestore)
+            implementation(libs.kotlinx.coroutines.play.services)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -72,5 +93,6 @@ kotlin {
 }
 
 dependencies {
+    add("androidMainImplementation", platform(libs.firebase.bom))
     androidRuntimeClasspath(libs.compose.uiTooling)
 }

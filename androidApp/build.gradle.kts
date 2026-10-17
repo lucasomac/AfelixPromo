@@ -3,6 +3,11 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.googleServicesPlugin) apply false
+}
+
+if (file("google-services.json").exists()) {
+    apply(plugin = libs.plugins.googleServicesPlugin.get().pluginId)
 }
 
 kotlin {

@@ -1,14 +1,20 @@
 package br.com.lucolimac.afelixpromo
 
-import androidx.compose.foundation.layout.Row
+import afelixpromo.shared.generated.resources.Res
+import afelixpromo.shared.generated.resources.affiliate_link_invalid
+import afelixpromo.shared.generated.resources.affiliate_link_open_failed
+import afelixpromo.shared.generated.resources.affiliate_link_opening
+import afelixpromo.shared.generated.resources.app_name
+import afelixpromo.shared.generated.resources.coupon_copied
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -29,27 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import br.com.lucolimac.afelixpromo.data.repository.LocalCatalogRepository
-import br.com.lucolimac.afelixpromo.presentation.catalog.CatalogLoadState
+import br.com.lucolimac.afelixpromo.data.repository.FirestoreCatalogRepository
 import br.com.lucolimac.afelixpromo.presentation.catalog.CatalogAdaptiveLayout
+import br.com.lucolimac.afelixpromo.presentation.catalog.CatalogLoadState
 import br.com.lucolimac.afelixpromo.presentation.catalog.CatalogUiEffect
 import br.com.lucolimac.afelixpromo.presentation.catalog.CatalogViewModel
 import br.com.lucolimac.afelixpromo.presentation.catalog.calculateCatalogPaneSizing
 import br.com.lucolimac.afelixpromo.presentation.catalog.calculateFoldedWindowViewport
 import br.com.lucolimac.afelixpromo.presentation.catalog.createCatalogViewModel
 import br.com.lucolimac.afelixpromo.presentation.theme.AfelixPromoTheme
-import br.com.lucolimac.afelixpromo.rememberFoldingFeatureInfo
-import afelixpromo.shared.generated.resources.Res
-import afelixpromo.shared.generated.resources.app_name
-import afelixpromo.shared.generated.resources.affiliate_link_invalid
-import afelixpromo.shared.generated.resources.affiliate_link_open_failed
-import afelixpromo.shared.generated.resources.affiliate_link_opening
-import afelixpromo.shared.generated.resources.catalog_load_error_message
-import afelixpromo.shared.generated.resources.catalog_load_error_title
-import afelixpromo.shared.generated.resources.catalog_loading_title
-import afelixpromo.shared.generated.resources.coupon_copied
-import afelixpromo.shared.generated.resources.loading_please_wait
-import afelixpromo.shared.generated.resources.retry
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 
@@ -61,7 +55,7 @@ import org.jetbrains.compose.resources.stringResource
 fun App() {
     val catalogViewModel: CatalogViewModel = viewModel(
         factory = viewModelFactory {
-            initializer { createCatalogViewModel(LocalCatalogRepository()) }
+            initializer { createCatalogViewModel(FirestoreCatalogRepository()) }
         },
     )
     val uiState by catalogViewModel.uiState.collectAsState()
