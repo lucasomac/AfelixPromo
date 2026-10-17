@@ -1,40 +1,39 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# AfelixPromo
 
-* [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+Aplicativo de ofertas e cupons de lojas parceiras da Bruna Felix. A primeira versão oficial, **1.0.0**, está disponível para Android e iOS e inclui um catálogo inicial de 18 lojas e 18 ofertas.
 
-* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./shared/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./shared/src/jvmMain/kotlin)
-    folder is the appropriate location.
+## Funcionalidades
 
-### Running the apps
+- Pesquise lojas e consulte seus descontos e cupons.
+- Copie um cupom com uma ação e confirmação próprias.
+- Abra a loja pelo link associado à oferta, com indicação de que links podem ser afiliados.
+- Use o layout adaptável: em janelas largas, catálogo e detalhes ficam lado a lado; em janelas compactas, a navegação permanece sequencial.
+- Consulte o catálogo empacotado no app sem conexão; imagens remotas e links externos requerem acesso à internet.
 
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
+## Plataformas e tecnologias
 
-- Android app: `./gradlew :androidApp:assembleDebug`
-- iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+- Android e iOS com interface compartilhada em Compose Multiplatform.
+- Kotlin Multiplatform, MVVM e Clean Architecture nas camadas compartilhadas.
+- O catálogo inicial é carregado de `shared/src/commonMain/composeResources/files/catalog.json`.
 
-### Running tests
+## Executar e testar
 
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
+Use o Android Studio para executar a configuração Android ou os comandos abaixo:
 
-- Android tests: `./gradlew :shared:testAndroidHostTest`
-- iOS tests: `./gradlew :shared:iosSimulatorArm64Test`
+```shell
+./gradlew :androidApp:assembleDebug
+./gradlew :shared:testAndroidHostTest
+./gradlew :shared:iosSimulatorArm64Test
+```
 
-### Product specifications
+Para executar no iOS, abra `iosApp/iosApp.xcodeproj` no Xcode e escolha um simulador ou dispositivo.
 
-The initial AfelixPromo product, UX/UI, and data architecture specifications are documented in Portuguese:
+## Documentação
 
-- [Product requirements](./docs/specifications/product-requirements.md)
-- [UX/UI flows and screens](./docs/specifications/ux-flows-and-screens.md)
-- [Data and architecture](./docs/specifications/data-and-architecture.md)
-- [Development conventions](./docs/development/code-conventions.md)
-
----
-
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+- [Histórico de alterações](./CHANGELOG.md)
+- [Notas da versão 1.0.0](./docs/releases/1.0.0.md)
+- [Política de Privacidade](./docs/site/privacity.md)
+- [Requisitos do produto](./docs/specifications/product-requirements.md)
+- [Fluxos e telas](./docs/specifications/ux-flows-and-screens.md)
+- [Dados e arquitetura](./docs/specifications/data-and-architecture.md)
+- [Convenções de desenvolvimento](./docs/development/code-conventions.md)
