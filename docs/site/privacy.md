@@ -1,6 +1,6 @@
 # Política de Privacidade — AfelixPromo
 
-**Última atualização: 16 de outubro de 2026**
+**Última atualização: 17 de outubro de 2026**
 
 Esta Política de Privacidade explica como o aplicativo AfelixPromo trata informações durante seu uso. O app permite consultar ofertas e cupons de lojas parceiras da Bruna Felix.
 
@@ -14,9 +14,9 @@ Para dúvidas, solicitações ou exercício de direitos relacionados a dados pes
 
 ## 2. Informações tratadas pelo aplicativo
 
-O AfelixPromo não exige cadastro e não solicita nome, e-mail, telefone, endereço, localização, dados de pagamento ou outros dados pessoais para consultar o catálogo. O app não possui, nesta versão, conta de usuário, servidor próprio para armazenar dados de uso, anúncios, ferramentas de análise de uso ou relatórios de falha integrados pelo desenvolvedor.
+O AfelixPromo não exige cadastro e não solicita nome, e-mail, telefone, endereço, localização ou dados de pagamento para consultar o catálogo. O app não possui conta de usuário, servidor próprio para armazenar dados de uso, anúncios ou ferramentas de análise de uso integradas pelo desenvolvedor.
 
-O catálogo de lojas, ofertas, descontos, cupons e endereços de destino é incluído no aplicativo. A pesquisa e a seleção de lojas são usadas para exibir o conteúdo no próprio dispositivo.
+O catálogo de lojas, ofertas, descontos, cupons e endereços de destino é solicitado ao Cloud Firestore, serviço de banco de dados em nuvem do Google Firebase. A pesquisa e a seleção de lojas são usadas para exibir o conteúdo no próprio dispositivo e não são enviadas pelo app.
 
 ### Área de transferência
 
@@ -24,7 +24,11 @@ Quando você escolhe copiar um cupom, o app envia o texto do cupom à área de t
 
 ## 3. Conexões com serviços de terceiros
 
-O app pode se conectar à internet para carregar imagens de logos hospedadas por terceiros. Ao solicitar uma imagem, o serviço que a hospeda e os provedores de rede envolvidos podem receber dados técnicos necessários à conexão, como endereço IP, informações da requisição e dados técnicos do dispositivo ou da conexão. O tratamento desses dados é regido pelas políticas dos respectivos provedores.
+O app se conecta ao Cloud Firestore, operado pelo Google Firebase, para obter e atualizar o catálogo. Essa requisição pode transmitir dados técnicos necessários ao serviço, como endereço IP, informações de conexão e metadados da solicitação. O Google poderá tratar esses dados conforme os termos e políticas aplicáveis aos serviços Firebase. Consulte a [Política de Privacidade do Google](https://policies.google.com/privacy) e os [termos do Firebase](https://firebase.google.com/terms).
+
+O SDK do Firestore mantém um cache local do catálogo para permitir consultas após uma sincronização bem-sucedida, inclusive quando o dispositivo estiver offline. O app não grava no Firestore dados fornecidos pelo usuário.
+
+O app também pode se conectar à internet para carregar imagens de logos hospedadas por terceiros. Ao solicitar uma imagem, o serviço que a hospeda e os provedores de rede envolvidos podem receber dados técnicos necessários à conexão, como endereço IP, informações da requisição e dados técnicos do dispositivo ou da conexão. O tratamento desses dados é regido pelas políticas dos respectivos provedores.
 
 Se você tocar para abrir uma oferta, o app solicita ao sistema operacional que abra o endereço associado àquela oferta em um navegador ou aplicativo compatível. Esses endereços podem conter parâmetros de campanha ou de afiliado. A loja, a rede de afiliados, o navegador e outros serviços envolvidos poderão receber informações da visita, como o endereço acessado, endereço IP e identificadores de campanha, conforme suas próprias práticas e configurações. Depois que o destino é aberto, o tratamento passa a ser responsabilidade dos serviços de terceiros.
 
@@ -32,21 +36,21 @@ O AfelixPromo não recebe confirmação de compra e não usa o app para acompanh
 
 ## 4. Finalidades e compartilhamento
 
-As conexões descritas acima são utilizadas para exibir logos solicitados pelo app e para encaminhar você ao destino escolhido. O responsável pelo AfelixPromo não vende dados pessoais nem mantém um perfil de uso associado a você nesta versão.
+As conexões descritas acima são utilizadas para buscar o catálogo, exibir logos solicitados pelo app e encaminhar você ao destino escolhido. O responsável pelo AfelixPromo não vende dados pessoais nem mantém um perfil de uso associado a você nesta versão.
 
 O compartilhamento que ocorre ao carregar conteúdo externo ou abrir uma oferta é iniciado pela funcionalidade solicitada e limitado às informações técnicas necessárias para que os serviços correspondentes atendam à requisição. Os terceiros podem tratar informações adicionais de acordo com suas próprias políticas.
 
 ## 5. Armazenamento e retenção
 
-O catálogo é armazenado como parte da instalação do aplicativo. A pesquisa e a loja selecionada são utilizadas durante a navegação e não são enviadas a um servidor do AfelixPromo. O app não mantém uma base própria de dados pessoais de usuários nesta versão.
+O Firestore pode manter uma cópia local do catálogo sincronizado no dispositivo, sob controle do SDK e do sistema operacional. A pesquisa e a loja selecionada são utilizadas durante a navegação e não são enviadas a um servidor do AfelixPromo. O app não mantém uma base própria de dados pessoais de usuários nesta versão. A remoção do app ou os controles do sistema operacional podem limpar os dados locais.
 
 Os provedores externos podem registrar requisições e conservar dados conforme suas políticas, prazos e obrigações legais. Para informações sobre essa retenção, consulte diretamente os provedores envolvidos.
 
 ## 6. Permissões e controles
 
-No Android, o app solicita acesso à internet para carregar imagens remotas. Não solicita permissão de localização, câmera, microfone, contatos ou arquivos para as funcionalidades descritas nesta política.
+No Android, o app usa acesso à internet para consultar o catálogo do Firestore e carregar imagens remotas. Não solicita permissão de localização, câmera, microfone, contatos ou arquivos para as funcionalidades descritas nesta política.
 
-Você pode evitar o carregamento de imagens desativando a conexão à internet ou limitar o acesso à rede pelas configurações do dispositivo. Sem internet, o catálogo incluído no app continua disponível, mas imagens remotas e destinos externos podem não abrir.
+Você pode limitar o acesso à rede pelas configurações do dispositivo. Sem internet, o catálogo poderá continuar disponível se já tiver sido sincronizado e estiver no cache local; na primeira utilização offline, o catálogo não estará disponível até uma conexão ser estabelecida. Imagens remotas e destinos externos também podem não abrir.
 
 ## 7. Crianças e adolescentes
 
@@ -60,7 +64,7 @@ Envie sua solicitação para **[E-MAIL DE CONTATO]**. Para proteger sua privacid
 
 ## 9. Segurança
 
-O app usa conexões HTTPS quando disponíveis nos endereços configurados para logos e ofertas. Nenhuma transmissão ou armazenamento eletrônico pode ser garantido como absolutamente seguro. A segurança e o tratamento após o redirecionamento também dependem dos serviços externos.
+O app usa conexões HTTPS para o Firestore e para os endereços configurados para logos e ofertas. Nenhuma transmissão ou armazenamento eletrônico pode ser garantido como absolutamente seguro. A segurança e o tratamento após o redirecionamento também dependem dos serviços externos.
 
 ## 10. Alterações nesta política
 
