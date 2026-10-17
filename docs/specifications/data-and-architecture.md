@@ -52,7 +52,7 @@ domain (modelos + contratos de repositório + casos de uso)
 data (repositórios concretos + parser + fontes de dados)
 ```
 
-- **Presentation:** `App` e componentes Compose renderizam estado e encaminham eventos. `CatalogViewModel` mantém estado de tela, coordena casos de uso e emite efeitos de UI; não conhece Compose nem APIs de clipboard/URL do sistema. Ícones remotos de loja são carregados na UI multiplataforma e usam placeholder com inicial durante carregamento/erro.
+- **Presentation:** `App` e componentes Compose renderizam estado e encaminham eventos. `CatalogViewModel` mantém estado de tela, coordena casos de uso e emite efeitos de UI; não conhece Compose nem APIs de clipboard/URL do sistema. A lista permite atualização por gesto de deslizar para baixo; o ViewModel bloqueia cargas concorrentes, preserva o estado carregado enquanto atualiza e substitui a seleção pelo registro atualizado quando a loja continua disponível. Ícones remotos de loja são carregados na UI multiplataforma e usam placeholder com inicial durante carregamento/erro.
 - **Domain:** modelos independentes de plataforma, `CatalogRepository` (contrato), busca, carregamento e validação de URLs como casos de uso. Não depende de Compose, Firebase ou recursos Android/iOS.
 - **Data:** `FirestoreCatalogRepository` implementa o contrato do domínio. Serviços Android e iOS consultam a coleção por seus SDKs Firebase nativos; o mapper comum valida o esquema e converte documentos para modelos de domínio. `CatalogJsonParser` valida a fonte JSON usada pelo importador/testes.
 - A criação manual do ViewModel e suas dependências ocorre no ponto de composição da aplicação; manter essa composição simples e explícita até existir necessidade de introduzir um framework de injeção de dependências.
@@ -69,7 +69,7 @@ Implementação atual em `shared/src/commonMain/kotlin/br/com/lucolimac/afelixpr
 
 ## Firestore
 
-- O cliente lê a coleção `stores` em uma consulta. As lojas são ordenadas alfabeticamente pelo nome no mapper comum; ofertas são ordenadas pelo `sortOrder` numérico dentro de cada loja (menor primeiro, com ID como desempate). Esse campo permite definir uma sequência editorial de ofertas sem afetar a ordem alfabética das lojas.
+- O cliente lê a coleção `stores` em uma consulta inicial e repete a leitura quando a pessoa atualiza a lista com o gesto de deslizar para baixo. O estado de atualização é separado do carregamento inicial e impede requisições simultâneas. As lojas são ordenadas alfabeticamente pelo nome no mapper comum; ofertas são ordenadas pelo `sortOrder` numérico dentro de cada loja (menor primeiro, com ID como desempate). Esse campo permite definir uma sequência editorial de ofertas sem afetar a ordem alfabética das lojas.
 - O importador grava `sortOrder` somente nas ofertas, seguindo a ordem em que aparecem no JSON. Documentos antigos de loja podem continuar contendo `sortOrder`; o app não o exige nem o usa, e novas importações deixam de gravá-lo.
 - Android usa o SDK Firebase nativo via Gradle; iOS importa FirebaseCore e FirebaseFirestore do Swift Package Manager usando a integração SwiftPM do Kotlin 2.5.0-Beta1 e a integração direta com Xcode. O cache persistente padrão dos SDKs permite leituras offline após a primeira sincronização; sem cache disponível, a falha é exibida e a UI permite tentar novamente.
 - O app é somente leitura. As regras em `firestore.rules` permitem leitura pública dos documentos de catálogo e negam qualquer escrita por clientes.

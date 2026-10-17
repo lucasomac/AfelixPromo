@@ -9,6 +9,7 @@ Aplicativo de ofertas e cupons de lojas parceiras da Bruna Felix. A primeira ver
 - Abra a loja pelo link associado à oferta, com indicação de que links podem ser afiliados.
 - Use o layout adaptável: em janelas largas, catálogo e detalhes ficam lado a lado; em janelas compactas, a navegação permanece sequencial.
 - Consulte o catálogo do Firestore; após uma sincronização bem-sucedida, o cache persistente do Firebase permite o acesso offline.
+- Atualize lojas e ofertas deslizando para baixo na lista, sem precisar reiniciar o app.
 
 ## Plataformas e tecnologias
 

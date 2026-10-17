@@ -34,6 +34,7 @@ import org.jetbrains.compose.resources.stringResource
  * @param selectedStore Store selected for the detail pane, if any.
  * @param stores Stores matching the active search.
  * @param hasStores Whether the loaded catalog contains any stores.
+ * @param isRefreshing Whether a user-initiated catalog refresh is in progress.
  * @param searchQuery Current search text.
  * @param paneSizing Two-pane allocation, or `null` for compact navigation.
  * @param onSearchQueryChange Called when the search text changes.
@@ -41,6 +42,7 @@ import org.jetbrains.compose.resources.stringResource
  * @param onCopyCoupon Called when an offer coupon should be copied.
  * @param onOpenStore Called when an offer destination should be opened.
  * @param onRetry Called when catalog loading should be retried.
+ * @param onRefresh Called when the store list is pulled down to refresh.
  * @param modifier Modifier applied to the layout container.
  */
 @Composable
@@ -49,6 +51,7 @@ internal fun CatalogAdaptiveLayout(
     selectedStore: Store?,
     stores: List<Store>,
     hasStores: Boolean,
+    isRefreshing: Boolean,
     searchQuery: String,
     paneSizing: CatalogPaneSizing?,
     onSearchQueryChange: (String) -> Unit,
@@ -56,6 +59,7 @@ internal fun CatalogAdaptiveLayout(
     onCopyCoupon: (Offer) -> Unit,
     onOpenStore: (Offer) -> Unit,
     onRetry: () -> Unit,
+    onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (paneSizing == null) {
@@ -78,8 +82,10 @@ internal fun CatalogAdaptiveLayout(
                         stores = stores,
                         hasStores = hasStores,
                         searchQuery = searchQuery,
+                        isRefreshing = isRefreshing,
                         onSearchQueryChange = onSearchQueryChange,
                         onStoreSelected = onStoreSelected,
+                        onRefresh = onRefresh,
                         modifier = modifier,
                     )
                 } else {
@@ -113,8 +119,10 @@ internal fun CatalogAdaptiveLayout(
                 stores = stores,
                 hasStores = hasStores,
                 searchQuery = searchQuery,
+                isRefreshing = isRefreshing,
                 onSearchQueryChange = onSearchQueryChange,
                 onStoreSelected = onStoreSelected,
+                onRefresh = onRefresh,
                 modifier = Modifier.width(paneSizing.listWidth).fillMaxHeight(),
             )
             if (paneSizing.isHingeGap) {
@@ -129,8 +137,7 @@ internal fun CatalogAdaptiveLayout(
                 modifier = Modifier.width(paneSizing.detailWidth).fillMaxHeight(),
                 contentAlignment = Alignment.TopStart,
             ) {
-                val store = selectedStore
-                if (store == null) {
+                if (selectedStore == null) {
                     Column(
                         modifier = Modifier.fillMaxSize().padding(24.dp),
                         verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp),
@@ -146,7 +153,7 @@ internal fun CatalogAdaptiveLayout(
                     }
                 } else {
                     StoreOffersScreen(
-                        store = store,
+                        store = selectedStore,
                         onCopyCoupon = onCopyCoupon,
                         onOpenStore = onOpenStore,
                         modifier = Modifier.fillMaxSize(),

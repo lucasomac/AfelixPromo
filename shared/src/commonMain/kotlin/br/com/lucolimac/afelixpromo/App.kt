@@ -166,6 +166,7 @@ fun App() {
                         selectedStore = uiState.selectedStore,
                         stores = uiState.visibleStores,
                         hasStores = loadedState?.stores?.isNotEmpty() == true,
+                        isRefreshing = uiState.isRefreshing,
                         searchQuery = uiState.searchQuery,
                         paneSizing = paneSizing,
                         onSearchQueryChange = catalogViewModel::onSearchQueryChange,
@@ -173,6 +174,7 @@ fun App() {
                         onCopyCoupon = catalogViewModel::onCopyCoupon,
                         onOpenStore = catalogViewModel::onOpenAffiliateLink,
                         onRetry = catalogViewModel::onRetry,
+                        onRefresh = catalogViewModel::onRefresh,
                         modifier = Modifier.fillMaxSize().padding(contentPadding),
                     )
                 }

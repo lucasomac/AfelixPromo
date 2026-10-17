@@ -9,6 +9,7 @@ import br.com.lucolimac.afelixpromo.domain.usecase.GetStoresUseCase
 import br.com.lucolimac.afelixpromo.domain.usecase.SearchStoresUseCase
 import br.com.lucolimac.afelixpromo.domain.usecase.ValidateAffiliateUrlUseCase
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -46,6 +47,9 @@ class CatalogViewModel(
     /** Complete catalog retained for local search. */
     private var stores: List<Store> = emptyList()
 
+    /** Active catalog request, preventing concurrent retries and refresh gestures. */
+    private var catalogLoadJob: Job? = null
+
     init {
         loadCatalog()
     }
@@ -75,6 +79,11 @@ class CatalogViewModel(
         loadCatalog()
     }
 
+    /** Refreshes the catalog after a downward swipe on the store list. */
+    fun onRefresh() {
+        loadCatalog(isRefresh = true)
+    }
+
     /** Requests a clipboard action when [offer] has a non-blank coupon. */
     fun onCopyCoupon(offer: Offer) {
         offer.couponCode?.takeIf(String::isNotBlank)?.let { coupon ->
@@ -97,14 +106,29 @@ class CatalogViewModel(
     }
 
     /** Loads the catalog and updates success, loading, or failure state. */
-    private fun loadCatalog() {
-        viewModelScope.launch {
-            mutableUiState.update { it.copy(loadState = CatalogLoadState.Loading) }
+    private fun loadCatalog(isRefresh: Boolean = false) {
+        if (catalogLoadJob?.isActive == true) return
+        catalogLoadJob = viewModelScope.launch {
+            mutableUiState.update { state ->
+                state.copy(
+                    loadState = if (isRefresh && state.loadState is CatalogLoadState.Loaded) {
+                        state.loadState
+                    } else {
+                        CatalogLoadState.Loading
+                    },
+                    isRefreshing = isRefresh,
+                )
+            }
             try {
                 stores = getStores()
                 mutableUiState.update {
+                    val refreshedSelectedStore = it.selectedStore?.let { selected ->
+                        stores.firstOrNull { store -> store.name == selected.name }
+                    }
                     it.copy(
                         loadState = CatalogLoadState.Loaded(stores),
+                        isRefreshing = false,
+                        selectedStore = refreshedSelectedStore,
                         visibleStores = searchStores(stores, it.searchQuery),
                     )
                 }
@@ -115,6 +139,7 @@ class CatalogViewModel(
                 mutableUiState.update {
                     it.copy(
                         loadState = CatalogLoadState.Failed,
+                        isRefreshing = false,
                     )
                 }
             }

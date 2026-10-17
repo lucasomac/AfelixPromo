@@ -21,6 +21,7 @@ sealed interface CatalogLoadState {
  * Immutable state rendered by the catalog and store-detail screens.
  *
  * @property loadState Current catalog loading result.
+ * @property isRefreshing Whether a user-initiated catalog refresh is in progress.
  * @property searchQuery Current store search text.
  * @property selectedStore Store being viewed, or `null` when the catalog is visible.
  * @property visibleStores Catalog stores matching [searchQuery].
@@ -28,6 +29,8 @@ sealed interface CatalogLoadState {
 data class CatalogUiState(
     /** Current catalog loading result. */
     val loadState: CatalogLoadState = CatalogLoadState.Loading,
+    /** Whether a user-initiated catalog refresh is in progress. */
+    val isRefreshing: Boolean = false,
     /** Current store search text. */
     val searchQuery: String = "",
     /** Store being viewed, or `null` when the catalog is visible. */

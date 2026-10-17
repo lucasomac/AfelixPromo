@@ -35,6 +35,7 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 - Título de tela com o nome do app, sem exigir um logotipo final.
 - Campo de busca com rótulo acessível, dica para buscar lojas e ação de limpar quando houver texto.
 - Lista de lojas derivada dos dados disponíveis. Cada item precisa ter uma área de toque clara e abrir o detalhe.
+- Permitir atualizar o catálogo com o gesto de deslizar para baixo sobre a lista. Durante a atualização, manter a lista visível e indicar o carregamento; após concluir, refletir as lojas e ofertas mais recentes do Firestore.
 - Exibir o ícone da loja quando o JSON fornecer uma URL; enquanto carrega ou em caso de falha, mostrar um placeholder arredondado com a inicial do nome.
 - Pode ser exibida a quantidade de ofertas por loja, pois ela é derivável do catálogo; não apresentar contagens se os dados ainda não tiverem sido validados.
 - Informação curta sobre links de afiliado, visível nesta tela ou em um elemento persistente de informação acessível.
@@ -45,6 +46,7 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 - **Busca sem resultados:** mensagem específica e ação para limpar a busca.
 - **Catálogo vazio válido:** mensagem informativa distinta de erro.
 - **Falha ao carregar/validar:** mensagem de erro explícita; não mascarar a falha como catálogo vazio.
+- **Atualização manual:** o gesto de deslizar para baixo solicita uma nova leitura do Firestore. Evitar requisições simultâneas; ao concluir, atualizar a lista sem exigir fechar e reabrir o app.
 
 ## Tela: detalhe da loja
 
@@ -78,7 +80,7 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 
 - Busca inicial por nome de loja; não pesquisar cupons, pois o objetivo selecionado é encontrar a loja primeiro.
 - A busca deve ignorar diferenças entre maiúsculas/minúsculas. Normalização de acentos e regras de correspondência devem ser testadas com nomes reais em português.
-- A ordenação das lojas ainda precisa ser confirmada ao conhecer o catálogo. A ordem alfabética é uma opção inicial previsível, não uma regra de produto aprovada.
+- Ordenar as lojas alfabeticamente, sem diferenciar maiúsculas/minúsculas e ignorando diacríticos comuns; usar desempate determinístico para nomes equivalentes.
 - A tela agrupa ofertas pelo campo `store` do JSON; a regra para grafias variantes depende da fonte.
 
 ## Interação com recursos do sistema
@@ -86,7 +88,7 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 - **Clipboard:** copiar exatamente o texto do cupom; oferecer confirmação perceptível sem interromper o fluxo.
 - **Link:** validar o esquema e o destino antes de solicitar abertura ao sistema; preferir os handlers do sistema para URLs web/links universais.
 - **Erro ao abrir:** não alegar sucesso se não houver handler ou se a solicitação falhar.
-- **Rede:** navegar no catálogo não depende de conectividade, pois os dados iniciais são locais.
+- **Rede:** o catálogo é carregado do Firestore e pode usar o cache persistente do SDK após uma sincronização. A atualização manual solicita a leitura novamente para obter alterações recentes; sem rede e sem cache, apresentar o estado de erro e permitir tentar novamente.
 
 ## Diretrizes visuais e acessibilidade
 
