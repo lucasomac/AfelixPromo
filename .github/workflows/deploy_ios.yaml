@@ -57,12 +57,12 @@ jobs:
         uses: yukiarrr/ios-build-action@v1.9.1
         with:
           project-path: iosApp/iosApp.xcodeproj
+          p12-base64: ${{ secrets.MIXDRINKS_IOS_P12_BASE64 }}
           mobileprovision-base64: ${{ secrets.PROD_MIXDRINKS_IOS_BUILD_PROVISION_PROFILE_BASE64 }}
           code-signing-identity: "iPhone Distribution"
           team-id: ${{ secrets.MIXDRINKS_IOS_TEAM_ID }}
           certificate-password: ${{ secrets.MIXDRINKS_IOS_CERTIFICATE_PASSWORD }}
           export-options: iosApp/exportOptionsRelease.plist
-          project-path-dir: iosApp
           export-method: "app-store"
 
       - name: "Upload IPA file as artifact"
