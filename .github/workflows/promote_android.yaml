@@ -1,0 +1,42 @@
+name: "Promote Android Release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_track:
+        description: 'Source Track (where the app currently is)'
+        required: true
+        default: 'internal'
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+      destination_track:
+        description: 'Destination Track (where to promote)'
+        required: true
+        default: 'alpha'
+        type: choice
+        options:
+          - alpha
+          - beta
+          - production
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: "Promote on Google Play"
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.MIXDRINKS_ANDROID_DEPLOY_SERVICE_ACCOUNT_JSON }}
+          packageName: br.com.lucolimac.afelixpromo
+          track: ${{ github.event.inputs.destination_track }}
+          inAppUpdatePriority: 3
+          status: completed
+          # Opcional: se o plugin precisar referenciar a pista anterior para promoção
+          # (o r0adkll/upload-google-play pega automaticamente a última build disponível na Google Play,
+          # mas caso queira garantir, podemos usar a mesma chave de serviço).

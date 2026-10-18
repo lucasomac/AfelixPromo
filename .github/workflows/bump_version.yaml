@@ -1,0 +1,141 @@
+name: "Bump Version"
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: 'Select SemVer bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set Git User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.zendesk.com"
+
+      - name: Extract Current Version from Gradle
+        id: extract_version
+        run: |
+          BUILD_FILE="androidApp/build.gradle.kts"
+          if [ ! -f "$BUILD_FILE" ]; then
+            echo "Error: $BUILD_FILE not found!"
+            exit 1
+          fi
+          VERSION_NAME=$(grep -E 'versionName\s*=' "$BUILD_FILE" | sed -E 's/.*versionName\s*=\s*"([^"]+)".*/\1/')
+          VERSION_CODE=$(grep -E 'versionCode\s*=' "$BUILD_FILE" | sed -E 's/.*versionCode\s*=\s*([0-9]+).*/\1/')
+
+          if [ -z "$VERSION_NAME" ] || [ -z "$VERSION_CODE" ]; then
+            echo "Error: Could not extract versionName or versionCode"
+            exit 1
+          fi
+
+          echo "current_version=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "current_code=$VERSION_CODE" >> $GITHUB_OUTPUT
+
+      - name: Determine Bump Type
+        id: bump_type
+        run: |
+          # 1. Se foi disparado manualmente via workflow_dispatch
+          BUMP_TYPE="${{ github.event.inputs.bump_type }}"
+
+          # 2. Se foi disparado por push/merge, lê a mensagem do último commit
+          if [ -z "$BUMP_TYPE" ]; then
+            COMMIT_MSG=$(git log -1 --pretty=%B)
+            echo "Commit message: $COMMIT_MSG"
+            if echo "$COMMIT_MSG" | grep -q "\[bump:major\]"; then
+              BUMP_TYPE="major"
+            elif echo "$COMMIT_MSG" | grep -q "\[bump:minor\]"; then
+              BUMP_TYPE="minor"
+            elif echo "$COMMIT_MSG" | grep -q "\[bump:patch\]"; then
+              BUMP_TYPE="patch"
+            else
+              BUMP_TYPE="patch" # Default padrão
+            fi
+          fi
+
+          echo "Selected Bump Type: $BUMP_TYPE"
+          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+
+      - name: Calculate New Version
+        id: calc_version
+        run: |
+          CURRENT_VERSION="${{ steps.extract_version.outputs.current_version }}"
+          CURRENT_CODE="${{ steps.extract_version.outputs.current_code }}"
+          BUMP_TYPE="${{ steps.bump_type.outputs.bump_type }}"
+
+          IFS='.' read -r major minor patch <<< "$CURRENT_VERSION"
+          major=${major:-0}
+          minor=${minor:-0}
+          patch=${patch:-0}
+
+          if [ "$BUMP_TYPE" = "major" ]; then
+            major=$((major + 1))
+            minor=0
+            patch=0
+          elif [ "$BUMP_TYPE" = "minor" ]; then
+            minor=$((minor + 1))
+            patch=0
+          else
+            patch=$((patch + 1))
+          fi
+
+          NEW_VERSION="$major.$minor.$patch"
+          NEW_CODE=$((CURRENT_CODE + 1))
+
+          echo "New Version: $NEW_VERSION"
+          echo "New Code: $NEW_CODE"
+
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "new_code=$NEW_CODE" >> $GITHUB_OUTPUT
+
+      - name: Update Android Gradle and iOS project
+        run: |
+          NEW_VERSION="${{ steps.calc_version.outputs.new_version }}"
+          NEW_CODE="${{ steps.calc_version.outputs.new_code }}"
+          OLD_VERSION="${{ steps.extract_version.outputs.current_version }}"
+          OLD_CODE="${{ steps.extract_version.outputs.current_code }}"
+
+          echo "Updating Android build.gradle.kts..."
+          BUILD_FILE="androidApp/build.gradle.kts"
+          sed -i.bak "s/versionCode = $OLD_CODE/versionCode = $NEW_CODE/" "$BUILD_FILE"
+          sed -i.bak "s/versionName = \"$OLD_VERSION\"/versionName = \"$NEW_VERSION\"/" "$BUILD_FILE"
+          rm -f "${BUILD_FILE}.bak"
+
+          echo "Updating iOS project.pbxproj..."
+          PBX_FILE="iosApp/iosApp.xcodeproj/project.pbxproj"
+          if [ -f "$PBX_FILE" ]; then
+            sed -i.bak "s/MARKETING_VERSION = $OLD_VERSION;/MARKETING_VERSION = $NEW_VERSION;/g" "$PBX_FILE"
+            sed -i.bak "s/CURRENT_PROJECT_VERSION = $OLD_CODE;/CURRENT_PROJECT_VERSION = $NEW_CODE;/g" "$PBX_FILE"
+            rm -f "${PBX_FILE}.bak"
+          else
+            echo "Warning: $PBX_FILE not found, skipping iOS project update."
+          fi
+
+      - name: Commit and Push Version Changes
+        run: |
+          NEW_VERSION="${{ steps.calc_version.outputs.new_version }}"
+          git add androidApp/build.gradle.kts iosApp/iosApp.xcodeproj/project.pbxproj
+          git commit -m "chore(release): bump version to $NEW_VERSION [skip ci]"
+          git push origin main
