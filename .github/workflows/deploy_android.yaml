@@ -40,7 +40,7 @@ jobs:
 
       - name: "Decode Keystore"
         run: |
-          echo "${{ secrets.MIXDRINKS_ANDROID_SIGNING_KEY }}" | base64 --decode > androidApp/release.jks
+          python3 -c "import base64; open('androidApp/release.jks', 'wb').write(base64.b64decode('${{ secrets.MIXDRINKS_ANDROID_SIGNING_KEY }}'))"
 
       - name: "Build bundle release"
         run: ./gradlew :androidApp:bundleRelease

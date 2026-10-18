@@ -28,7 +28,7 @@ android {
         applicationId = "br.com.lucolimac.afelixpromo"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 7
+        versionCode = 4
         versionName = "1.1.3"
     }
     packaging {
