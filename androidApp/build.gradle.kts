@@ -28,8 +28,8 @@ android {
         applicationId = "br.com.lucolimac.afelixpromo"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 6
-        versionName = "1.1.2"
+        versionCode = 7
+        versionName = "1.1.3"
     }
     packaging {
         resources {
