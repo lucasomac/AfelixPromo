@@ -1,0 +1,75 @@
+name: Prepare Release
+
+on:
+  workflow_run:
+    workflows: [ "Bump Version" ]
+    types:
+      - completed
+
+jobs:
+  prepare_deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      mix_drinks_mobile_version_name: ${{ steps.extract_version.outputs.version_name }}
+      mix_drinks_mobile_version_code: ${{ steps.extract_version.outputs.version_code }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set Git User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.zendesk.com"
+
+      - name: Extract Version from Gradle
+        id: extract_version
+        run: |
+          BUILD_FILE="androidApp/build.gradle.kts"
+          if [ ! -f "$BUILD_FILE" ]; then
+            echo "Error: $BUILD_FILE not found!"
+            exit 1
+          fi
+
+          # Read versionName and versionCode from build.gradle.kts
+          VERSION_NAME=$(grep -E 'versionName\s*=' "$BUILD_FILE" | sed -E 's/.*versionName\s*=\s*"([^"]+)".*/\1/')
+          VERSION_CODE=$(grep -E 'versionCode\s*=' "$BUILD_FILE" | sed -E 's/.*versionCode\s*=\s*([0-9]+).*/\1/')
+
+          if [ -z "$VERSION_NAME" ] || [ -z "$VERSION_CODE" ]; then
+            echo "Error: Could not extract versionName or versionCode from $BUILD_FILE"
+            exit 1
+          fi
+
+          echo "Extracted Version Name: $VERSION_NAME"
+          echo "Extracted Version Code: $VERSION_CODE"
+
+          echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
+
+      - name: Check if Git Tag Exists for Version
+        id: check_tag
+        run: |
+          TAG="${{ steps.extract_version.outputs.version_name }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "tag_exists=true" >> $GITHUB_OUTPUT
+            echo "Tag $TAG already exists."
+          else
+            echo "tag_exists=false" >> $GITHUB_OUTPUT
+            echo "Tag $TAG does not exist yet."
+          fi
+
+      - name: Create and Push Git Tag if Not Exists
+        if: steps.check_tag.outputs.tag_exists == 'false'
+        run: |
+          TAG="${{ steps.extract_version.outputs.version_name }}"
+          git tag "$TAG"
+          git push origin "$TAG"
+
+      - name: Print Output Summary
+        run: |
+          echo "=== Release Prepared Successfully ==="
+          echo "Version Name: ${{ steps.extract_version.outputs.version_name }}"
+          echo "Version Code: ${{ steps.extract_version.outputs.version_code }}"
