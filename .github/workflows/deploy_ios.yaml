@@ -38,11 +38,20 @@ jobs:
           echo '${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}' > iosApp/iosApp/GoogleService-Info.plist
 
       - name: "Setup app version"
-        uses: yanamura/ios-bump-version@v1
-        with:
-          version: ${{ steps.extract_version.outputs.version_name }}
-          build-number: ${{ steps.extract_version.outputs.version_code }}
-          project-path: iosApp
+        run: |
+          VERSION_NAME="${{ steps.extract_version.outputs.version_name }}"
+          VERSION_CODE="${{ steps.extract_version.outputs.version_code }}"
+          
+          PBX_FILE="iosApp/iosApp.xcodeproj/project.pbxproj"
+          if [ -f "$PBX_FILE" ]; then
+            echo "Updating iOS version in $PBX_FILE to $VERSION_NAME ($VERSION_CODE)"
+            sed -i.bak "s/MARKETING_VERSION = [^;]*;/MARKETING_VERSION = $VERSION_NAME;/g" "$PBX_FILE"
+            sed -i.bak "s/CURRENT_PROJECT_VERSION = [^;]*;/CURRENT_PROJECT_VERSION = $VERSION_CODE;/g" "$PBX_FILE"
+            rm -f "${PBX_FILE}.bak"
+          else
+            echo "Error: $PBX_FILE not found!"
+            exit 1
+          fi
 
       - name: "Build iOS App"
         uses: yukiarrr/ios-build-action@v1.9.1
