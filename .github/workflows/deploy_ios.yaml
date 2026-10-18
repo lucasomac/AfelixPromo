@@ -43,7 +43,6 @@ jobs:
         uses: yukiarrr/ios-build-action@v1.9.1
         with:
           project-path: iosApp/iosApp.xcodeproj
-          p12-base64: ${{ secrets.MIXDRINKS_IOS_P12_BASE64 }}
           mobileprovision-base64: ${{ secrets.PROD_MIXDRINKS_IOS_BUILD_PROVISION_PROFILE_BASE64 }}
           code-signing-identity: "iPhone Distribution"
           team-id: ${{ secrets.MIXDRINKS_IOS_TEAM_ID }}
@@ -67,7 +66,6 @@ jobs:
         env:
           API_KEY: ${{ secrets.MIXDRINKS_IOS_APPSTORE_API_KEY_ID }}
           API_ISSUER: ${{ secrets.MIXDRINKS_IOS_APPSTORE_ISSUER_ID  }}
+          MIXDRINKS_MOBILE_APP_VERSION_NAME: ${{ steps.extract_version.outputs.version_name }}
+          MIXDRINKS_MOBILE_APP_VERSION_CODE: ${{ steps.extract_version.outputs.version_code }}
         run: xcrun altool --output-format xml --upload-app -f output.ipa -t ios --apiKey $API_KEY --apiIssuer $API_ISSUER
-    env:
-      MIXDRINKS_MOBILE_APP_VERSION_NAME: ${{ steps.extract_version.outputs.version_name }}
-      MIXDRINKS_MOBILE_APP_VERSION_CODE: ${{ steps.extract_version.outputs.version_code }}
