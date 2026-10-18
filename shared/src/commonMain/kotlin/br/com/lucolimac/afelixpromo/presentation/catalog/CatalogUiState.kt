@@ -37,6 +37,8 @@ data class CatalogUiState(
     val selectedStore: Store? = null,
     /** Catalog stores matching [searchQuery]. */
     val visibleStores: List<Store> = emptyList(),
+    /** Store layout display mode. */
+    val displayMode: StoreDisplayMode = StoreDisplayMode.LIST,
 )
 
 /**
