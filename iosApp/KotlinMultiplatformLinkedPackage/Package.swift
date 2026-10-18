@@ -14,7 +14,7 @@ let package = Package(
   ],
   dependencies: [
     .package(
-      url: "https://github.com/firebase/firebase-ios-sdk.git",
+      url: "https://github.com/firebase/firebase-ios-sdk",
       from: "13.0.1"
     )
   ],
@@ -28,6 +28,10 @@ let package = Package(
         ),
         .product(
           name: "FirebaseFirestore",
+          package: "firebase-ios-sdk"
+        ),
+        .product(
+          name: "FirebaseRemoteConfig",
           package: "firebase-ios-sdk"
         )
       ]

@@ -168,6 +168,7 @@ fun App() {
                         hasStores = loadedState?.stores?.isNotEmpty() == true,
                         isRefreshing = uiState.isRefreshing,
                         searchQuery = uiState.searchQuery,
+                        displayMode = uiState.displayMode,
                         paneSizing = paneSizing,
                         onSearchQueryChange = catalogViewModel::onSearchQueryChange,
                         onStoreSelected = catalogViewModel::onStoreSelected,
