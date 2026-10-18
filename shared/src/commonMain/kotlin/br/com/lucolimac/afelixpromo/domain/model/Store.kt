@@ -24,6 +24,7 @@ data class Store(
  * @property affiliateUrl HTTP(S) destination used to access the partner store.
  * @property discountValue Discount value as supplied by the catalog source.
  * @property discountType Meaning/type of the discount as supplied by the source.
+ * @property description Optional additional terms or details for this offer.
  */
 data class Offer(
     /** Stable identifier for this offer within the loaded catalog. */
@@ -36,4 +37,6 @@ data class Offer(
     val discountValue: String,
     /** Meaning/type of the discount as supplied by the source. */
     val discountType: String,
+    /** Optional additional terms or details for this offer. */
+    val description: String? = null,
 )
