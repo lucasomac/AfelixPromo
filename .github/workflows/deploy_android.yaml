@@ -34,11 +34,13 @@ jobs:
       - name: "Setup Gradle"
         uses: gradle/actions/setup-gradle@v3
 
-      # --- ADICIONE ESTE STEP AQUI ---
       - name: "Create google-services.json"
         run: |
           echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > androidApp/google-services.json
-      # -------------------------------
+
+      - name: "Decode Keystore"
+        run: |
+          echo "${{ secrets.MIXDRINKS_ANDROID_SIGNING_KEY }}" | base64 --decode > androidApp/release.jks
 
       - name: "Build bundle release"
         run: ./gradlew :androidApp:bundleRelease
@@ -48,7 +50,7 @@ jobs:
         id: sign_app
         with:
           releaseDirectory: androidApp/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.MIXDRINKS_ANDROID_SIGNING_KEY }}
+          signingKeyFile: androidApp/release.jks
           alias: ${{ secrets.MIXDRINKS_ANDROID_ALIAS }}
           keyStorePassword: ${{ secrets.MIXDRINKS_ANDROID_KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.MIXDRINKS_ANDROID_KEY_PASSWORD }}
