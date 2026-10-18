@@ -1,154 +1,92 @@
 [
   {
-    "store": "Braé",
-    "cupon": "BRUAFELIX",
-    "url": "https://brae.com.br",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/510453858_18483565474076668_7324186741720238595_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy41NTQuQzMifQ%3D%3D&_nc_ohc=ns0eIBQI5JUQ7kNvwHl5mCc&_nc_oc=AdqoAtLTAP8IwYT8D_r41la1FnU5tEPlgSlwuecBvTBo8-90lmtU7xG3AC-k8MYM3G4fO9FAoMaZP1CszH49b5UJ&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=uGvtcMU4vnlRTu37V0aL-Q&_nc_ss=7b2a8&oh=00_AQPwSTFQh6pRzZBmRbhsODHA_4WsQssP3guezG_GuNCfCA&oe=6AD886C7"
-  },
-  {
-    "store": "Skelt",
-    "cupon": "SKBRUAFELIX",
-    "url": "https://www.skelt.com.br/?utm_source=creators&utm_medium=SKBRUAFELIX&utm_campaign=inbazz&fbclid=PAZXh0bgNhZW0CMTEAcGRvZgRzcnRjBmFwcF9pZAwyNTYyODEwNDA1NTgAAafg9ZqKAbZvpQsyOx916q4B_F5FtP8V8rgJEfdQFsMdtWyVGoGCwyOfEaVgWw_aem_lGRZE5ihepqIStfS0s2Eiw&utm_id=97760_v0_s00_e0_tv6_a1denngogyirtq",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/768408878_18621454123005011_6889959485254836141_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=PbfPmkct9FkQ7kNvwEqw_u2&_nc_oc=AdqYrak3dOaFEmuC6tERsyaOSAozc7KfMeb0RtXkj4JLYfnJnM6M5a-IpdmUdlYGnBJNqcwObJhuG3D0m0406hGH&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=Rt1bbMKujHlG0PkxL9j7RA&_nc_ss=7b6a8&oh=00_AQNfYxj5l1xPSbPce5M5up7a7uXvHIn2LBodUS6DBwfVyg&oe=6AD88BB7"
-  },
-  {
-    "store": "Cadiveu",
-    "cupon": "BRUAFELIX",
-    "url": "https://store.cadiveu.com/collections/bye-bye-frizz?utm_source=flipnet&utm_campaign=bruafelix&fbclid=PAZXh0bgNhZW0CMTEAcGRvZgRzcnRjBmFwcF9pZAwyNTYyODEwNDA1NTgAAad-E2u5imn9KVfhD-i27ka9whjNxHxXrRKZDMPzyd4qDQ6Ak-bfYQ5X6PR2VA_aem_rJOCVmNWDNNYe6XK0ShNDA&utm_id=97760_v0_s00_e0_tv6_a1denngogyirtq",
-    "discount": 15,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/830027571_18642959095037740_727922919548562634_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=105&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=6oQkjgjLaNoQ7kNvwFnjSqj&_nc_oc=Adqr3KrLWvOXYTFfxqjRg1BLKg9tiT3aYIny5kBCXQuKo4Lo-j-mMoyl2YAvF4ZTIkWQ4VuRDCBK52XVHbjY5ajx&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=WkaXt-tTBHkJziQnQrPH1w&_nc_ss=7b6a8&oh=00_AQNgj8BOWsITBNpYl9IlAsQE58uoWw8AbRxdjsbWcGDlVA&oe=6AD8A8E3"
-  },
-  {
-    "store": "Oceane",
-    "cupon": "BRUAFELIX",
-    "url": "https://www.oceane.com.br/",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.2885-19/366101418_1102133580764140_6510256948666919957_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDAwLkMzIn0%3D&_nc_ohc=8Pm5gyXifcEQ7kNvwH9rwAi&_nc_oc=AdqynGVdxdQrsfzM8NWyUIFYn5UxjzuKlNuNfDl3nuHsWoqgY7yhNDArVZLCkYJhvrmUyvXMPffZ9-0_FY9fLMkU&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_ss=7b6a8&oh=00_AQP_beBe8qy822EKieDoPqEANZHnTakqwjOqpNQJK3bRWg&oe=6AD88EF8"
-  },
-  {
-    "store": "Amend",
-    "cupon": "IDB_AFELIX",
-    "url": "https://www.amend.com.br",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/603067033_18548573404043818_6723281415538822963_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy41NTQuQzMifQ%3D%3D&_nc_ohc=Hw0N04iquDsQ7kNvwEI009T&_nc_oc=AdrQZHTBQgOMjitiqRkUEP-TNWKjNaFO6K35JtkUVN-PzoqyBHJi1PzMdJgWhT4AQjFKJcyuxKqKWut4HOZEIMjI&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=gEvqiKdwyyf2f_ZVzC58wA&_nc_ss=7b6a8&oh=00_AQP64EV7l40GRF69UAjbD4e-65gxNYyEMI_v4x040BOMNg&oe=6AD8A9E0"
-  },
-  {
-    "store": "Alva",
-    "cupon": "ALVABRUAFELIX",
-    "url": "www.alvapersonalcare.com.br",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/721266158_18594090238046073_7853180071221517173_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=WUnxJzD68ugQ7kNvwHqlm05&_nc_oc=AdrrzrSfgJa-n4YuatUgqvpgUn_IzO6blV8FezqpHIu0ZhZRs6VFMO5HicTx5CL_-u71g4A2ozeXEaCj39FqsJUy&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=7W8lnpHH18GOoLFXH8nPbg&_nc_ss=7b2a8&oh=00_AQOUPVOSywFbtbqEGiUtlSvPRM7fNXbwzQF5Vp8AXptXNA&oe=6AD8A4C4"
-  },
-  {
-    "store": "Aura Beauty",
-    "cupon": "AURAVIP",
-    "url": "www.aurabeautyclub.com.br",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/812166755_17959532595251601_329176362306333537_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=9pNLOCqajbAQ7kNvwEBV9M2&_nc_oc=AdqhRc8MAkVaQH9cSoJhLbr3yoyqkXwZBguPZyH5Ofnyt1-dKlUpE4ZGtBxg1zHLqjb1HT2ZWZtkD1adTFX_ixkH&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=KtfUU3xAYx6P4XcYtdlA-Q&_nc_ss=7b6a8&oh=00_AQNZiE4RCQaPlystFJxnNzoDSSPtaa3QUv6AlNpF3NTMEQ&oe=6AD88C35"
-  },
-  {
-    "store": "Céu de prata",
-    "cupon": "AFELIX10",
-    "url": "https://www.ceudeprata.com.br/",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.2885-19/472477326_608229771892701_4366304912272617527_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy44OTguQzMifQ%3D%3D&_nc_ohc=ic_WkW-wkrIQ7kNvwHuzILm&_nc_oc=Adot-aF0PucwlsjvhrJ-RyaZ6H0uTdZoCBtHZEDys3qshSploaB6HlCDh2NdBklEGJPTz9MftiVvCcj3Waw4B8KR&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_ss=7b6a8&oh=00_AQNqNxvCiiq3-f-PanlL09wKAJ61cclXRsSQ0tvAQ069Qg&oe=6AD8A45D"
-  },
-  {
-    "store": "Poeticamente",
-    "cupon": "BRUNASILVA5",
-    "url": "https://www.poeticamente.com.br/",
-    "discount": 5,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/590415338_18384152875148503_8592632397322551023_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjUuQzMifQ%3D%3D&_nc_ohc=4ZZdneaPb20Q7kNvwHT2gPr&_nc_oc=AdpUaetevGVGCPiiLIrmP3FNF0Y--j0RetlHRrD5qFsleUxEXMwX7wRt8FBKMErEAFWanI5RRRjRm-T8uOuJXgaw&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=Ea3hbL4sUsuNbUxs139ptg&_nc_ss=7b2a8&oh=00_AQON_-yeCOUhGDLKLDEc0YZbNuIu5Lg5vCmbOTvpBle5-A&oe=6AD890C2"
-  },
-  {
-    "store": "Max Titanium",
-    "cupon": "MAX10AFELIX",
-    "url": "https://www.maxtitanium.com.br/",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.2885-19/338203309_167371766175510_2472909044644395426_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy41NjguQzMifQ%3D%3D&_nc_ohc=yfJ_yUe_rdEQ7kNvwFkZgVG&_nc_oc=Adr5cv2lhk9jKKFCP-J-ZCXNFtremex1IRRxsHw6MrZOWeqlfm45y5aWI6DdOb1p_2aBPxwPbld8GeOZG1_Jq1La&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_ss=7b2a8&oh=00_AQOWEq5eh_f4povpg2JV7t3wlo_qQR03n1izuvM1PGUi1g&oe=6AD89309"
-  },
-  {
-    "store": "ZZ Mall",
-    "cupon": "ZZCUPOM5795",
-    "url": "https://www.zzmall.com.br/",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/565426711_18092715071311172_5657889079695154136_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4zMjAuQzMifQ%3D%3D&_nc_ohc=1tN_gfi5C7oQ7kNvwEWHVxh&_nc_oc=Adrwi3WiDN4KvoXhvtEcKQorYdCge8jJccX07LNyviQ78_lGbdHApj53OvffQlkiKb3_cQez-yIt_ZmXxrMFkSSp&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=M6XePXCDGQuA7_Q3o-10YA&_nc_ss=7b6a8&oh=00_AQNFreBIUSXfy1eMP8GAmHTjfSdhxNdmr1PGkp9k7xQrhg&oe=6AD8804F"
-  },
-  {
-    "store": "Probiotica",
-    "cupon": "PRO10AFELIX",
-    "url": "https://www.probiotica.com.br/",
+    "store": "Magalu",
+    "cupon": "10BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 499,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
     "discount": 10,
     "type": "Valor",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/520184182_18518169040040816_2284676780898474445_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=qNUmewuIfBgQ7kNvwEM6X7T&_nc_oc=Adq69kr1WT7sUQCbJpuyT8lOjSGoDK1OndH4Wqh9lonlAt_LIcZ6NRSHHazRKa-YPq2yC5cPfCc_LeFHMn_lmMkM&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=bBZOT-Pbe3F68bX9F-z1rg&_nc_ss=7b6a8&oh=00_AQOJ1E7aLnUJYMSLcUdT4-WoNA615sYKkGU4ruyJp2FcHQ&oe=6AD880CB"
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
   },
   {
-    "store": "Partiu Viajar",
-    "cupon": "BRUNARIANE",
-    "url": "https://partiuviajar.tur.br/",
-    "discount": 5,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/797646355_18487753522105733_3984201525528668117_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42NjguQzMifQ%3D%3D&_nc_ohc=LFiUZWUbnJwQ7kNvwHXaUGa&_nc_oc=AdrPuN-gpt-RvKv-BiA5YLEwAIufjhFNTw08XiwsNtbnuWQgBLaZUeRbpTkIOPU-aAhSqKvvZwCNjUAp7J_tsXQs&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=Yjaql2RZ8Bo3R4hdRyICqQ&_nc_ss=7b6a8&oh=00_AQOfy0WPk0UGRGApp-GV8ZQsPSlL2e3h7jEqYYIwJjTYjA&oe=6AD8A267"
+    "store": "Magalu",
+    "cupon": "20BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 999,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
+    "discount": 20,
+    "type": "Valor",
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
   },
   {
-    "store": "Saint German",
-    "cupon": "A-BRUARIANE10",
-    "url": "https://www.saintgermainbrand.com.br/",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/724197442_18116730538888011_710185239956162934_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=zvahfj4JU3UQ7kNvwG9etQ9&_nc_oc=AdqUK2EQ9cPP3h_h-EKnoNYneKV3OnBIVPRA2T44yZJQqXo5k187QthUGGJJbPXWEjB0uDjV1PAJ8Lt_b6T-XoYC&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=gMzZNGAHKLwONPfzL7tNhQ&_nc_ss=7b6a8&oh=00_AQPKDd8YtZVGIPDqfCYOcYc1Bg0Yj95YCi1uzs4JmVobyQ&oe=6AD8A7C8"
+    "store": "Magalu",
+    "cupon": "30BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 1.499,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
+    "discount": 30,
+    "type": "Valor",
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
   },
   {
-    "store": "Mac Cosmetics",
-    "cupon": "SOUMAC7-1879",
-    "url": "https://www.maccosmetics.com.br/",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/792766236_18444853501135402_7148294383691542515_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=CEmE8yvH6CYQ7kNvwFtzj1v&_nc_oc=AdrOnwAGPLmUdukMVtveNSfzE23vZx_V2u0_k3Eh399GFgU0a4e-DCGIPfdCTKxX-bDBjQhVvhQdo3oUOpOBxvTT&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=qnLoCk8h3Ejope1ni126dQ&_nc_ss=7b6a8&oh=00_AQOU1m_EsZGtO3bKtLddnupML8O0FzXOGi8Y3y8s3VDybw&oe=6AD897F1"
+    "store": "Magalu",
+    "cupon": "40BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 1.999,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
+    "discount": 40,
+    "type": "Valor",
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
   },
   {
-    "store": "Happy Hair",
-    "cupon": "BRUAFELIX",
-    "url": "https://www.happyhair.com.br/",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.2885-19/69638202_734981733630129_6297867260891496448_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=l-YtLcBSosEQ7kNvwHuGdbn&_nc_oc=AdprLaxUxtFJfdLSMDfgd8oSuCbINmVeYE20oA_BWuwa3zoqaa6IhHDzs3iGkFoQNvMMWpsy7mXTYjChrE6-e9Ly&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_ss=7b6a8&oh=00_AQN6aQ3cyNOaAm9vub_OhpFGeVlFyxPi3TeBn58tr2WQyQ&oe=6AD88E2B"
+    "store": "Magalu",
+    "cupon": "50BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 2.499,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
+    "discount": 50,
+    "type": "Valor",
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
   },
   {
-    "store": "Forever Liss",
-    "cupon": "FLBRUAFELIX",
-    "url": "https://www.foreverliss.com.br/",
-    "discount": 15,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/783571117_18620827474038178_2433696192453193096_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MDAuQzMifQ%3D%3D&_nc_ohc=jwRdLfmx4isQ7kNvwFrc__q&_nc_oc=Adqt-c-xaABnS0sAb6jSFoAQoRwU7LUMD-5_aOqtIVgt_MSlIAycuspWKseboKO_oilsXmQMDMs2KkaivJRbxFO4&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=KQlTmEu8EzIr-skF39H_3w&_nc_ss=7b2a8&oh=00_AQNXsMmHSMyK4_4EemuoMwkf_5qsUK-cUtDLvm92F6VT5g&oe=6AD89C88"
+    "store": "Magalu",
+    "cupon": "60BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 2.999,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
+    "discount": 60,
+    "type": "Valor",
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
   },
   {
-    "store": "Goold Spell",
-    "cupon": "M5OUNRKL",
-    "url": "https://www.goold.shop/",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/819272085_18433139203182037_2052047499459283092_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy45OTMuQzMifQ%3D%3D&_nc_ohc=_avQjNtx3bcQ7kNvwGsN2Qc&_nc_oc=Adr1lRPPXpTqpotbbIGXVrMsGbSCRIH1FSqAC_mt0V2YgKCIMZiqWVzjPojyYd0iOVix_PDeZISsc-baUiCxUR57&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=6xRUmXY-pUfkb5qMFm4R0g&_nc_ss=7b6a8&oh=00_AQPnq4_e4jznuAwgeHTAhifkQg9UmfDuHEX0dq9lvGUC1g&oe=6AD88BAA"
+    "store": "Magalu",
+    "cupon": "70BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 3.499,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
+    "discount": 70,
+    "type": "Valor",
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
   },
   {
-    "store": "Simple",
-    "cupon": "S-BRUAFELIX",
-    "url": "https://simpleorganic.com.br/",
-    "discount": 10,
-    "type": "Porcentagem",
-    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/779180102_18556602640091278_8567355538782033361_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=1&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43NDguQzMifQ%3D%3D&_nc_ohc=15Z-HgtkBmsQ7kNvwEg-1_W&_nc_oc=Adqo21nK9pd0AcekHh4dwfsL10i9kQBD98_lWW_-AyjBBR8PyPdC2cwopIg9JgylcjmA5NmoVcYDEvqNxgA4tX6E&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=1qYIYCmkfyPcNWmCM20PGw&_nc_ss=7b6a8&oh=00_AQNJ7OTTM1GIHMEBg2e3U_oI2Y7AY3kJ9uVnAL_H0S75Tg&oe=6AD9B7FE"
+    "store": "Magalu",
+    "cupon": "80BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 3.999,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
+    "discount": 80,
+    "type": "Valor",
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
+  },
+  {
+    "store": "Magalu",
+    "cupon": "90BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 4.499,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
+    "discount": 90,
+    "type": "Valor",
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
+  },
+  {
+    "store": "Magalu",
+    "cupon": "100BRUNAENAIRA",
+    "description": "Válido para compras à partir de R$ 4.999,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+    "url": "https://www.magazinevoce.com.br/brunaenaira/",
+    "discount": 100,
+    "type": "Valor",
+    "icon": "https://instagram.faqa1-1.fna.fbcdn.net/v/t51.82787-19/642475779_17983741814959711_1245439930403821649_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-00tYbTZx-8Q7kNvwHlGf15&_nc_oc=AdraC2uVIWJMS-XiYQCeXdlaYzSkXDeyqM3IEsel25-5cCOCkBqzGlAb2U2U6F41y0Eyq2GRy9XMa5bSAqoyQRdd&_nc_zt=24&_nc_ht=instagram.faqa1-1.fna&_nc_gid=5t-XvdmRo6Hzi8Xke_ThDw&_nc_ss=7b2a8&oh=00_AQMowokbuOju7DXQzusil53W5XTjqpcy9desDnzsvU59kg&oe=6AD9D417"
   }
 ]

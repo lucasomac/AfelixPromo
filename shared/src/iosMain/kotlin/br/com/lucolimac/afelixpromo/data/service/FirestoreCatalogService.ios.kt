@@ -64,6 +64,7 @@ internal actual suspend fun loadFirestoreStoreDocuments(): List<Pair<String, Fir
                     affiliateUrl = offer.requiredString("affiliateUrl", document.documentID),
                     discountValue = offer.requiredString("discountValue", document.documentID),
                     discountType = offer.requiredString("discountType", document.documentID),
+                    description = offer.optionalString("description", document.documentID),
                     sortOrder = requiredSortOrder(
                         value = (offer["sortOrder"] as? NSNumber)?.doubleValue,
                         field = "sortOrder",

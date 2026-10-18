@@ -51,7 +51,7 @@ class SharedCommonTest {
     fun parsesJsonAndGroupsOffersByStore() {
         val json = """
             [
-              {"store":"Loja Azul","cupon":"AZUL10","url":"www.azul.example","discount":10,"type":"Porcentagem","icon":"https://azul.example/icon.png"},
+              {"store":"Loja Azul","cupon":"AZUL10","url":"www.azul.example","discount":10,"type":"Porcentagem","icon":"https://azul.example/icon.png","description":"Oferta especial"},
               {"store":"Loja Azul","cupon":"AZUL15","url":"https://azul.example/oferta?a=1&b=2","discount":15,"type":"Porcentagem","icon":""}
             ]
         """.trimIndent()
@@ -63,6 +63,17 @@ class SharedCommonTest {
         assertEquals(2, stores.single().offers.size)
         assertEquals("https://www.azul.example", stores.single().offers.first().affiliateUrl)
         assertEquals("https://azul.example/icon.png", stores.single().iconUrl)
+        assertEquals("Oferta especial", stores.single().offers.first().description)
+        assertEquals(null, stores.single().offers.last().description)
+    }
+
+    /** An explicitly null optional description is accepted as absent. */
+    @Test
+    fun parsesNullOfferDescriptionAsAbsent() {
+        val json =
+            """[{"store":"Loja Azul","url":"https://azul.example","discount":10,"type":"Porcentagem","description":null}]"""
+
+        assertEquals(null, CatalogJsonParser().parse(json).single().offers.single().description)
     }
 
     /** Invalid JSON records fail explicitly instead of being silently skipped. */
@@ -82,13 +93,17 @@ class SharedCommonTest {
         assertFailsWith<CatalogFormatException> { CatalogJsonParser().parse(json) }
     }
 
-    /** Discount formatting avoids assuming a currency for value discounts. */
+    /** Value discounts use pt-BR currency formatting while invalid values retain their source text. */
     @Test
-    fun formatsPercentDiscountWithoutInventingCurrencyForValueDiscount() {
+    fun formatsDiscountLabelsWithBrazilianCurrencyForNumericValues() {
         val percentage = Offer("offer-1", null, "https://loja.example", "10", "Porcentagem")
-        val value = percentage.copy(discountValue = "10", discountType = "Valor")
+        val value = percentage.copy(discountValue = "1234.5", discountType = "Valor")
+        val decimalComma = value.copy(discountValue = "10,5")
+        val invalidValue = value.copy(discountValue = "a partir de 10")
 
         assertEquals("10%", percentage.discountLabel())
-        assertEquals("10 · Valor", value.discountLabel())
+        assertEquals("R$ 1.234,50", value.discountLabel())
+        assertEquals("R$ 10,50", decimalComma.discountLabel())
+        assertEquals("a partir de 10", invalidValue.discountLabel())
     }
 }

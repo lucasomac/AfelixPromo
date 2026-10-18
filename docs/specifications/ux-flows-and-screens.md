@@ -52,10 +52,10 @@ Não há abas, favoritos, filtros por categoria nem área de conta no MVP.
 
 - Nome da loja como título.
 - Lista de ofertas da loja, cada uma em um cartão ou seção visualmente separada.
-- Em cada oferta, mostrar o desconto como veio definido pelos dados e, se houver, o cupom.
+- Em cada oferta, mostrar o desconto; valores numéricos do tipo `Valor` são apresentados como moeda BRL no padrão pt-BR. Mostrar a descrição fornecida pela fonte quando não estiver vazia e, se houver, o cupom.
 - Ação **Copiar cupom** apenas quando houver um valor de cupom utilizável.
 - Ação **Acessar loja** associada ao link específico da oferta.
-- Aviso de transparência sobre links de afiliado, próximo às ações de saída.
+- A transparência sobre links de afiliado permanece informada no catálogo. A descrição da oferta, quando disponível, ocupa seu próprio espaço no cartão; sem descrição, não exibir texto de substituição nessa posição.
 - Navegação de retorno para a lista de lojas conforme os padrões de cada plataforma.
 - No Android, apresentar uma seta de retorno no padrão da plataforma e fazer o botão/gesto de voltar do sistema retornar ao catálogo; no catálogo, manter o comportamento padrão de saída do Android.
 - No iOS, preservar o controle textual de retorno existente.

@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import afelixpromo.shared.generated.resources.Res
-import afelixpromo.shared.generated.resources.affiliate_link_disclosure
 import afelixpromo.shared.generated.resources.copy_coupon
 import afelixpromo.shared.generated.resources.coupon_label
 import afelixpromo.shared.generated.resources.discount_label
@@ -111,10 +110,12 @@ private fun OfferCard(
             ) {
                 Text(stringResource(Res.string.open_store))
             }
-            Text(
-                text = stringResource(Res.string.affiliate_link_disclosure),
-                style = MaterialTheme.typography.bodySmall,
-            )
+            offer.description?.takeIf(String::isNotBlank)?.let { description ->
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
         }
     }
 }
