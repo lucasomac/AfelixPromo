@@ -34,7 +34,7 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.MIXDRINKS_ANDROID_DEPLOY_SERVICE_ACCOUNT_JSON }}
           packageName: br.com.lucolimac.afelixpromo
-          track: ${{ github.event.inputs.destination_track }}
+          tracks: ${{ github.event.inputs.destination_track }}
           inAppUpdatePriority: 3
           status: completed
           # Opcional: se o plugin precisar referenciar a pista anterior para promoção
