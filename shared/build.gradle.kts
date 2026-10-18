@@ -27,13 +27,14 @@ kotlin {
     swiftPMDependencies {
         discoverClangModulesImplicitly = false
         @OptIn(ExperimentalKotlinGradlePluginApi::class) swiftPackage(
-            url = url("https://github.com/firebase/firebase-ios-sdk.git"),
+            url = url("https://github.com/firebase/firebase-ios-sdk"),
             version = from("13.0.1"),
             products = listOf(
                 product("FirebaseCore"),
                 product("FirebaseFirestore"),
+                product("FirebaseRemoteConfig"),
             ),
-            importedClangModules = listOf("FirebaseCore", "FirebaseFirestoreInternal"),
+            importedClangModules = listOf("FirebaseCore", "FirebaseFirestoreInternal", "FirebaseRemoteConfigInternal"),
         )
     }
 
@@ -67,6 +68,7 @@ kotlin {
             implementation(libs.compose.uiTooling)
             implementation(libs.ktor.client.android)
             implementation(libs.firebase.firestore)
+            implementation(libs.firebase.config)
             implementation(libs.kotlinx.coroutines.play.services)
         }
         iosMain.dependencies {

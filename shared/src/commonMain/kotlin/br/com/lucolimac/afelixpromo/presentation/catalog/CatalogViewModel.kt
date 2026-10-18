@@ -7,6 +7,7 @@ import br.com.lucolimac.afelixpromo.domain.model.Store
 import br.com.lucolimac.afelixpromo.domain.repository.CatalogRepository
 import br.com.lucolimac.afelixpromo.domain.usecase.GetStoresUseCase
 import br.com.lucolimac.afelixpromo.domain.usecase.SearchStoresUseCase
+import br.com.lucolimac.afelixpromo.data.service.fetchStoreDisplayMode
 import br.com.lucolimac.afelixpromo.domain.usecase.ValidateAffiliateUrlUseCase
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -52,6 +53,18 @@ class CatalogViewModel(
 
     init {
         loadCatalog()
+        loadDisplayMode()
+    }
+
+    private fun loadDisplayMode() {
+        viewModelScope.launch {
+            try {
+                val mode = fetchStoreDisplayMode()
+                mutableUiState.update { it.copy(displayMode = mode) }
+            } catch (_: Exception) {
+                // Keep default
+            }
+        }
     }
 
     /** Updates the visible catalog for a new search [query]. */
