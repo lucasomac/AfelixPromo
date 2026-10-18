@@ -89,5 +89,5 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.MIXDRINKS_ANDROID_DEPLOY_SERVICE_ACCOUNT_JSON }}
           packageName: br.com.lucolimac.afelixpromo
           releaseFiles: ${{ steps.sign_app.outputs.signedReleaseFile }}
-          track: internal
+          tracks: internal
           status: completed
