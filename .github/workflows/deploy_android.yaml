@@ -1,0 +1,62 @@
+name: "Deploy Android"
+
+on:
+  workflow_run:
+    workflows: [ "Prepare Release" ]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  deploy_android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract Version from Gradle
+        id: extract_version
+        run: |
+          BUILD_FILE="androidApp/build.gradle.kts"
+          VERSION_NAME=$(grep -E 'versionName\s*=' "$BUILD_FILE" | sed -E 's/.*versionName\s*=\s*"([^"]+)".*/\1/')
+          VERSION_CODE=$(grep -E 'versionCode\s*=' "$BUILD_FILE" | sed -E 's/.*versionCode\s*=\s*([0-9]+).*/\1/')
+          echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
+
+      - name: "Setup Java"
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: "Setup Gradle"
+        uses: gradle/actions/setup-gradle@v3
+      - name: "Build bundle release"
+        run: ./gradlew :androidApp:bundleRelease
+      - uses: r0adkll/sign-android-release@v1
+        name: "Sign app aab file"
+        id: sign_app
+        with:
+          releaseDirectory: androidApp/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.MIXDRINKS_ANDROID_SIGNING_KEY }}
+          alias: ${{ secrets.MIXDRINKS_ANDROID_ALIAS }}
+          keyStorePassword: ${{ secrets.MIXDRINKS_ANDROID_KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.MIXDRINKS_ANDROID_KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "Upload AAB file as artifact"
+          path: ${{ steps.sign_app.outputs.signedReleaseFile }}
+      - name: "Upload to Google Play"
+        env:
+          MIXDRINKS_MOBILE_APP_VERSION_NAME: ${{ steps.extract_version.outputs.version_name }}
+          MIXDRINKS_MOBILE_APP_VERSION_CODE: ${{ steps.extract_version.outputs.version_code }}
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.MIXDRIN_ANDROID_DEPLOY_SERVICE_ACCOUNT_JSON }}
+          packageName: br.com.lucolimac.afelixpromo
+          releaseFiles: ${{ steps.sign_app.outputs.signedReleaseFile }}
+          track: internal
+          status: completed
