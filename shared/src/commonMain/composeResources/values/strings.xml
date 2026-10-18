@@ -27,7 +27,6 @@
     <string name="coupon_label">Cupom: %1$s</string>
     <string name="copy_coupon">Copiar cupom</string>
     <string name="open_store">Acessar loja</string>
-    <string name="affiliate_link_disclosure">Este link pode ser de afiliado.</string>
     <string name="store_icon_content_description">Ícone da loja %1$s</string>
     <string name="unknown_store_initial">?</string>
     <plurals name="offer_count">

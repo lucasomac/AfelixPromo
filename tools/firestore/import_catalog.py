@@ -64,7 +64,7 @@ def load_documents(source: Path) -> list[tuple[str, dict[str, object]]]:
     stores: dict[str, dict[str, object]] = {}
     ids_by_name: dict[str, str] = {}
     seen_offers: dict[str, set[tuple[str, str, str, str]]] = {}
-    allowed_fields = {"store", "cupon", "url", "discount", "type", "icon"}
+    allowed_fields = {"store", "cupon", "url", "discount", "type", "icon", "description"}
 
     for index, entry in enumerate(entries, start=1):
         if not isinstance(entry, dict):
@@ -101,6 +101,10 @@ def load_documents(source: Path) -> list[tuple[str, dict[str, object]]]:
         if coupon is not None and not isinstance(coupon, str):
             fail(f"O cupom da oferta {index} deve ser texto ou nulo.")
 
+        description = entry.get("description")
+        if description is not None and not isinstance(description, str):
+            fail(f"A descrição da oferta {index} deve ser texto ou nulo.")
+
         icon = entry.get("icon")
         if icon is not None and not isinstance(icon, str):
             fail(f"O ícone da oferta {index} deve ser texto ou nulo.")
@@ -134,6 +138,8 @@ def load_documents(source: Path) -> list[tuple[str, dict[str, object]]]:
         }
         if coupon_code:
             offer["couponCode"] = coupon_code
+        if description:
+            offer["description"] = description
         offers.append(offer)
 
         if "iconUrl" not in stores[store_id] and icon_url:

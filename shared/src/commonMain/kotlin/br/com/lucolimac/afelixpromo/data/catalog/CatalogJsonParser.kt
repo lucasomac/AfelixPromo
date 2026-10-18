@@ -74,6 +74,7 @@ class CatalogJsonParser(
                         affiliateUrl = entry.url,
                         discountValue = entry.discount.content,
                         discountType = entry.type.trim(),
+                        description = entry.description?.trim()?.takeIf(String::isNotEmpty),
                     )
                 },
             )
@@ -99,6 +100,7 @@ class CatalogJsonParser(
      * @property discount Discount value represented as a JSON number or string.
      * @property type Source discount type label.
      * @property icon Optional store icon URL.
+     * @property description Optional offer details or terms.
      */
     @Serializable
     private data class CatalogOfferDto(
@@ -114,6 +116,8 @@ class CatalogJsonParser(
         @SerialName("type") val type: String,
         /** Optional store icon URL. */
         @SerialName("icon") val icon: String? = null,
+        /** Optional offer details or terms. */
+        @SerialName("description") val description: String? = null,
     )
 
     private companion object {
