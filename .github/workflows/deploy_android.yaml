@@ -50,13 +50,13 @@ jobs:
           name: "Upload AAB file as artifact"
           path: ${{ steps.sign_app.outputs.signedReleaseFile }}
       - name: "Upload to Google Play"
+        env:
+          MIXDRINKS_MOBILE_APP_VERSION_NAME: ${{ steps.extract_version.outputs.version_name }}
+          MIXDRINKS_MOBILE_APP_VERSION_CODE: ${{ steps.extract_version.outputs.version_code }}
         uses: r0adkll/upload-google-play@v1
         with:
-          serviceAccountJsonPlainText: ${{ secrets.MIXDRINKS_ANDROID_DEPLOY_SERVICE_ACCOUNT_JSON }}
+          serviceAccountJsonPlainText: ${{ secrets.MIXDRIN_ANDROID_DEPLOY_SERVICE_ACCOUNT_JSON }}
           packageName: br.com.lucolimac.afelixpromo
           releaseFiles: ${{ steps.sign_app.outputs.signedReleaseFile }}
           track: internal
           status: completed
-    env:
-      MIXDRINKS_MOBILE_APP_VERSION_NAME: ${{ steps.extract_version.outputs.version_name }}
-      MIXDRINKS_MOBILE_APP_VERSION_CODE: ${{ steps.extract_version.outputs.version_code }}
