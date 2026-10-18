@@ -67,6 +67,7 @@ internal class FirestoreCatalogMapper(
                                 ),
                                 discountValue = offer.discountValue.trim(),
                                 discountType = offer.discountType.trim(),
+                                description = offer.description?.trim()?.takeIf(String::isNotEmpty),
                             )
                         },
                 ),
@@ -130,6 +131,7 @@ internal data class FirestoreStoreDocument(
  * @property discountValue Discount value stored as text to preserve source formatting.
  * @property discountType Meaning of the discount value, as supplied by its source.
  * @property sortOrder Non-negative position used to control display order within the store.
+ * @property description Optional offer details or terms.
  */
 internal data class FirestoreOfferDocument(
     val id: String,
@@ -138,4 +140,5 @@ internal data class FirestoreOfferDocument(
     val discountValue: String,
     val discountType: String,
     val sortOrder: Int,
+    val description: String? = null,
 )

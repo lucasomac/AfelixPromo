@@ -50,6 +50,7 @@ private fun DocumentSnapshot.toCatalogRecord(): Pair<String, FirestoreStoreDocum
                 affiliateUrl = offer.requiredString("affiliateUrl", id),
                 discountValue = offer.requiredString("discountValue", id),
                 discountType = offer.requiredString("discountType", id),
+                description = offer.optionalString("description", id),
                 sortOrder = requiredSortOrder(
                     value = (offer["sortOrder"] as? Number)?.toDouble(),
                     field = "sortOrder",

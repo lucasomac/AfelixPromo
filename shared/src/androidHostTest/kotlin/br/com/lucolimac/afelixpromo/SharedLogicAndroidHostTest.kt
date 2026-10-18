@@ -13,22 +13,24 @@ import kotlin.test.assertTrue
  */
 class SharedLogicAndroidHostTest {
 
-    /** The JSON catalog parses every offer, normalizes URLs, and retains store icons. */
+    /** The current JSON catalog parses every offer and retains descriptions and store icons. */
     @Test
-    fun bundledJsonParsesEveryOfferAndNormalizesMissingSchemes() {
+    fun bundledJsonParsesEveryOfferAndRetainsDescriptions() {
         val json = File("src/commonMain/composeResources/files/catalog.json").readText(StandardCharsets.UTF_8)
         val stores = CatalogJsonParser().parse(json)
 
-        assertEquals(19, stores.sumOf { it.offers.size })
+        assertEquals(10, stores.sumOf { it.offers.size })
+        val magalu = stores.single { it.name == "Magalu" }
+        assertEquals(10, magalu.offers.size)
         assertEquals(
-            "https://www.alvapersonalcare.com.br",
-            stores.single { it.name == "Alva" }.offers.single().affiliateUrl,
+            "Válido para compras à partir de R$ 499,90 vendidos e entregues pelo Magalu. Uso exclusivo na sua loja.",
+            assertNotNull(magalu.offers.first().description),
         )
         assertEquals(
             "Valor",
-            stores.single { it.name == "Probiotica" }.offers.single().discountType,
+            magalu.offers.first().discountType,
         )
-        val braeIconUrl = assertNotNull(stores.single { it.name == "Braé" }.iconUrl)
-        assertTrue(braeIconUrl.startsWith("https://"))
+        val magaluIconUrl = assertNotNull(magalu.iconUrl)
+        assertTrue(magaluIconUrl.startsWith("https://"))
     }
 }

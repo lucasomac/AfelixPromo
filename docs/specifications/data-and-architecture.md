@@ -6,9 +6,10 @@ O projeto é Kotlin Multiplatform com targets Android e iOS. A UI Compose está 
 
 ## Fonte inicial
 
-- A fonte de importação é `shared/src/commonMain/composeResources/files/catalog.json`. É um array de ofertas com os campos `store`, `cupon`, `url`, `discount`, `type` e `icon`.
-- O arquivo atual contém 19 ofertas. Duas URLs não têm esquema (`www.alvapersonalcare.com.br` e `www.aurabeautyclub.com.br`) e são normalizadas para `https://` durante a importação. O tipo `Valor` aparece em uma oferta; a unidade monetária não é informada e não deve ser inferida.
+- A fonte de importação é `shared/src/commonMain/composeResources/files/catalog.json`. É um array de ofertas com os campos `store`, `cupon`, `url`, `discount`, `type`, `icon` e `description`.
+- O arquivo atual contém 19 ofertas. Duas URLs não têm esquema (`www.alvapersonalcare.com.br` e `www.aurabeautyclub.com.br`) e são normalizadas para `https://` durante a importação. A apresentação de descontos do tipo `Valor` usa BRL com formatação pt-BR; valores sem representação numérica são exibidos sem símbolo monetário.
 - O campo `icon` é opcional e vazio significa ausência de ícone; o primeiro ícone não vazio da loja é guardado no modelo de domínio.
+- O campo `description` é opcional por oferta; quando há conteúdo, o app o apresenta no cartão. Ausências e textos em branco não produzem uma linha no cartão.
 - O arquivo continua versionado para permitir importações repetíveis. O app não o empacota como alternativa quando o Firestore estiver indisponível.
 - A especificação não assume campos de categoria, imagem, descrição, validade ou condições.
 
@@ -20,10 +21,11 @@ O projeto é Kotlin Multiplatform com targets Android e iOS. A UI Compose está 
 | Loja     | `icon`          | URL opcional do ícone/logo; valor vazio é tratado como ausente.                   |
 | Oferta   | `cupon`         | Exibir e copiar quando houver valor utilizável; o campo pode ser omitido ou nulo. |
 | Oferta   | `url`           | Destino externo associado à oferta. Deve ser validado antes de abrir.             |
-| Oferta   | `discount`      | Preservar o valor numérico ou textual da fonte sem inferir moeda.                 |
+| Oferta   | `discount`      | Preservar o valor da fonte; formatar como BRL somente na apresentação de `Valor`. |
 | Oferta   | `type`          | Preservar o significado da fonte, por exemplo `Porcentagem` ou `Valor`.           |
+| Oferta   | `description`   | Texto opcional com detalhes/condições da oferta; ausência é válida.               |
 
-Cada objeto JSON representa uma oferta associada a uma loja; objetos com o mesmo nome `store` são agrupados. O importador gera IDs determinísticos a partir do nome normalizado da loja e da posição da oferta na fonte. No Firestore, cada documento `stores/{storeId}` contém os campos `name`, `iconUrl` (opcional) e uma lista `offers`; cada oferta contém `id`, `couponCode` (opcional), `affiliateUrl`, `discountValue`, `discountType` e `sortOrder`.
+Cada objeto JSON representa uma oferta associada a uma loja; objetos com o mesmo nome `store` são agrupados. O importador gera IDs determinísticos a partir do nome normalizado da loja e da posição da oferta na fonte. No Firestore, cada documento `stores/{storeId}` contém os campos `name`, `iconUrl` (opcional) e uma lista `offers`; cada oferta contém `id`, `couponCode` (opcional), `affiliateUrl`, `discountValue`, `discountType`, `description` (opcional) e `sortOrder`.
 
 O app ordena as lojas alfabeticamente pelo nome, sem diferenciar maiúsculas/minúsculas e ignorando diacríticos comuns do alfabeto latino; em nomes equivalentes, usa o nome original e o ID Firestore como desempate determinístico. Não é necessário armazenar ordem de exibição nas lojas.
 
