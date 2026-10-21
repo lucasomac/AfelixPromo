@@ -49,7 +49,14 @@ class FirestoreCatalogMapperTest {
                 "store" to store(
                     name = "Store",
                     iconUrl = "",
-                    offers = listOf(offer(id = "offer", couponCode = " ", description = " Termos da oferta ")),
+                    offers = listOf(
+                        offer(
+                            id = "offer",
+                            couponCode = " ",
+                            description = " Termos da oferta ",
+                            customizedShareMessage = " ",
+                        ),
+                    ),
                 ),
             ),
         )
@@ -57,6 +64,7 @@ class FirestoreCatalogMapperTest {
         assertNull(stores.single().iconUrl)
         assertNull(stores.single().offers.single().couponCode)
         assertEquals("Termos da oferta", stores.single().offers.single().description)
+        assertNull(stores.single().offers.single().customizedShareMessage)
     }
 
     /** A malformed destination fails the complete catalog load rather than dropping an offer. */
@@ -137,6 +145,7 @@ class FirestoreCatalogMapperTest {
         affiliateUrl: String = "https://shop.example",
         couponCode: String? = "SAVE10",
         description: String? = null,
+        customizedShareMessage: String? = null,
     ) = FirestoreOfferDocument(
         id = id,
         couponCode = couponCode,
@@ -145,5 +154,6 @@ class FirestoreCatalogMapperTest {
         discountType = "Porcentagem",
         sortOrder = sortOrder,
         description = description,
+        customizedShareMessage = customizedShareMessage,
     )
 }

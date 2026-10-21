@@ -39,4 +39,6 @@ data class Offer(
     val discountType: String,
     /** Optional additional terms or details for this offer. */
     val description: String? = null,
+    /** Optional customized share message for this offer. */
+    val customizedShareMessage: String? = null,
 )

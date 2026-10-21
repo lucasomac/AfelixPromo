@@ -56,6 +56,7 @@ private fun DocumentSnapshot.toCatalogRecord(): Pair<String, FirestoreStoreDocum
                     field = "sortOrder",
                     documentId = "$id/$offerId",
                 ),
+                customizedShareMessage = offer.optionalString("customizedShareMessage", id),
             )
         },
     )

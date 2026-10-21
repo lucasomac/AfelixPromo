@@ -68,6 +68,7 @@ internal class FirestoreCatalogMapper(
                                 discountValue = offer.discountValue.trim(),
                                 discountType = offer.discountType.trim(),
                                 description = offer.description?.trim()?.takeIf(String::isNotEmpty),
+                                customizedShareMessage = offer.customizedShareMessage?.takeIf(String::isNotEmpty),
                             )
                         },
                 ),
@@ -141,4 +142,5 @@ internal data class FirestoreOfferDocument(
     val discountType: String,
     val sortOrder: Int,
     val description: String? = null,
+    val customizedShareMessage: String? = null,
 )
