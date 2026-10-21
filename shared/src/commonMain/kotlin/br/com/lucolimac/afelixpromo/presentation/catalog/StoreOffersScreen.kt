@@ -16,31 +16,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import afelixpromo.shared.generated.resources.Res
-import afelixpromo.shared.generated.resources.copy_coupon
+import afelixpromo.shared.generated.resources.copy_coupon_and_follow_site
 import afelixpromo.shared.generated.resources.coupon_label
 import afelixpromo.shared.generated.resources.discount_label
 import afelixpromo.shared.generated.resources.offers_available
 import afelixpromo.shared.generated.resources.offers_empty_message
 import afelixpromo.shared.generated.resources.offers_empty_title
-import afelixpromo.shared.generated.resources.open_store
+import afelixpromo.shared.generated.resources.share_offer
 import org.jetbrains.compose.resources.stringResource
 import br.com.lucolimac.afelixpromo.domain.model.Offer
 import br.com.lucolimac.afelixpromo.domain.model.Store
 import br.com.lucolimac.afelixpromo.domain.model.discountLabel
 
 /**
- * Displays the offers for a store with separate coupon-copy and store-access actions.
+ * Displays the offers for a store with separate coupon-copy and store-share actions.
  *
  * @param store Store whose offers are displayed.
  * @param onCopyCoupon Called when the user requests copying an offer coupon.
- * @param onOpenStore Called when the user requests opening an offer destination.
+ * @param onShareOffer Called when the user requests sharing an offer.
  * @param modifier Modifier applied to the screen container.
  */
 @Composable
 internal fun StoreOffersScreen(
     store: Store,
     onCopyCoupon: (Offer) -> Unit,
-    onOpenStore: (Offer) -> Unit,
+    onShareOffer: (Offer) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -65,7 +65,7 @@ internal fun StoreOffersScreen(
                     OfferCard(
                         offer = offer,
                         onCopyCoupon = onCopyCoupon,
-                        onOpenStore = onOpenStore,
+                        onShareOffer = onShareOffer,
                     )
                 }
             }
@@ -74,17 +74,17 @@ internal fun StoreOffersScreen(
 }
 
 /**
- * Displays one offer and exposes its available coupon and affiliate-link actions.
+ * Displays one offer and exposes its available coupon and share actions.
  *
  * @param offer Offer to display.
  * @param onCopyCoupon Called when the user requests copying the coupon.
- * @param onOpenStore Called when the user requests opening the destination.
+ * @param onShareOffer Called when the user requests sharing the offer.
  */
 @Composable
 private fun OfferCard(
     offer: Offer,
     onCopyCoupon: (Offer) -> Unit,
-    onOpenStore: (Offer) -> Unit,
+    onShareOffer: (Offer) -> Unit,
 ) {
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(
@@ -101,14 +101,14 @@ private fun OfferCard(
                     onClick = { onCopyCoupon(offer) },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(stringResource(Res.string.copy_coupon))
+                    Text(stringResource(Res.string.copy_coupon_and_follow_site))
                 }
             }
             Button(
-                onClick = { onOpenStore(offer) },
+                onClick = { onShareOffer(offer) },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(stringResource(Res.string.open_store))
+                Text(stringResource(Res.string.share_offer))
             }
             offer.description?.takeIf(String::isNotBlank)?.let { description ->
                 Text(

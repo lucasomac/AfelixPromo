@@ -58,7 +58,7 @@ internal fun CatalogAdaptiveLayout(
     onSearchQueryChange: (String) -> Unit,
     onStoreSelected: (Store) -> Unit,
     onCopyCoupon: (Offer) -> Unit,
-    onOpenStore: (Offer) -> Unit,
+    onShareOffer: (Offer) -> Unit,
     onRetry: () -> Unit,
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
@@ -94,7 +94,7 @@ internal fun CatalogAdaptiveLayout(
                     StoreOffersScreen(
                         store = selectedStore,
                         onCopyCoupon = onCopyCoupon,
-                        onOpenStore = onOpenStore,
+                        onShareOffer = onShareOffer,
                         modifier = modifier,
                     )
                 }
@@ -158,7 +158,7 @@ internal fun CatalogAdaptiveLayout(
                     StoreOffersScreen(
                         store = selectedStore,
                         onCopyCoupon = onCopyCoupon,
-                        onOpenStore = onOpenStore,
+                        onShareOffer = onShareOffer,
                         modifier = Modifier.fillMaxSize(),
                     )
                 }

@@ -97,20 +97,26 @@ class CatalogViewModel(
         loadCatalog(isRefresh = true)
     }
 
-    /** Requests a clipboard action when [offer] has a non-blank coupon. */
+    /** Requests a clipboard action when [offer] has a non-blank coupon, and opens the offer link. */
     fun onCopyCoupon(offer: Offer) {
         offer.couponCode?.takeIf(String::isNotBlank)?.let { coupon ->
             emitEffect(CatalogUiEffect.CopyCoupon(coupon))
         }
-    }
-
-    /** Validates [offer]'s destination and requests that the platform open it. */
-    fun onOpenAffiliateLink(offer: Offer) {
         if (validateAffiliateUrl(offer.affiliateUrl)) {
             emitEffect(CatalogUiEffect.OpenAffiliateLink(offer.affiliateUrl))
         } else {
             emitEffect(CatalogUiEffect.AffiliateLinkInvalid)
         }
+    }
+
+    /** Validates [offer]'s destination and requests that the platform share its message or link. */
+    fun onShareOffer(offer: Offer) {
+        val messageToShare = offer.customizedShareMessage?.takeIf(String::isNotBlank) ?: offer.affiliateUrl
+        if (messageToShare == offer.affiliateUrl && !validateAffiliateUrl(offer.affiliateUrl)) {
+            emitEffect(CatalogUiEffect.AffiliateLinkInvalid)
+            return
+        }
+        emitEffect(CatalogUiEffect.ShareText(messageToShare))
     }
 
     /** Reports the result of the platform's attempt to open an affiliate link. */

@@ -87,6 +87,9 @@ fun App() {
                     }
                     snackbarHostState.showSnackbar(message)
                 }
+                is CatalogUiEffect.ShareText -> {
+                    platformActions.shareText(effect.text)
+                }
             }
         }
     }
@@ -173,7 +176,7 @@ fun App() {
                         onSearchQueryChange = catalogViewModel::onSearchQueryChange,
                         onStoreSelected = catalogViewModel::onStoreSelected,
                         onCopyCoupon = catalogViewModel::onCopyCoupon,
-                        onOpenStore = catalogViewModel::onOpenAffiliateLink,
+                        onShareOffer = catalogViewModel::onShareOffer,
                         onRetry = catalogViewModel::onRetry,
                         onRefresh = catalogViewModel::onRefresh,
                         modifier = Modifier.fillMaxSize().padding(contentPadding),

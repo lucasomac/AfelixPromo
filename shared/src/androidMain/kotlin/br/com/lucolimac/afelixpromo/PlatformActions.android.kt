@@ -43,6 +43,20 @@ actual fun rememberPlatformActions(): PlatformActions {
                     onResult(false)
                 }
             }
+
+            /** Launches an Android send intent for sharing text. */
+            override fun shareText(text: String) {
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, text)
+                }
+                val chooser = Intent.createChooser(intent, "AfelixPromo tem uma promoção para você!").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                try {
+                    context.startActivity(chooser)
+                } catch (_: Exception) {
+                    // Ignore share failure
+                }
+            }
         }
     }
 }

@@ -70,6 +70,7 @@ internal actual suspend fun loadFirestoreStoreDocuments(): List<Pair<String, Fir
                         field = "sortOrder",
                         documentId = "${document.documentID}/$offerId",
                     ),
+                    customizedShareMessage = offer.optionalString("customizedShareMessage", document.documentID),
                 )
             } ?: throw CatalogFormatException("A loja '${document.documentID}' não possui uma lista de ofertas."),
         )

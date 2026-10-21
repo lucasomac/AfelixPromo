@@ -62,4 +62,9 @@ sealed interface CatalogUiEffect {
         /** Whether the platform accepted the request to open the destination. */
         val opened: Boolean,
     ) : CatalogUiEffect
+    /** Shares text via the platform share sheet. */
+    data class ShareText(
+        /** Text to share. */
+        val text: String,
+    ) : CatalogUiEffect
 }

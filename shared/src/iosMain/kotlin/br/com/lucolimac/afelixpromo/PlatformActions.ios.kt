@@ -31,5 +31,16 @@ actual fun rememberPlatformActions(): PlatformActions = remember {
                 completionHandler = onResult,
             )
         }
+
+        /** Shares text via UIActivityViewController on iOS. */
+        override fun shareText(text: String) {
+            val window = UIApplication.sharedApplication.keyWindow ?: return
+            val rootViewController = window.rootViewController ?: return
+            val activityViewController = platform.UIKit.UIActivityViewController(
+                activityItems = listOf(text),
+                applicationActivities = null,
+            )
+            rootViewController.presentViewController(activityViewController, animated = true, completion = null)
+        }
     }
 }

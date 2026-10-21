@@ -25,8 +25,8 @@
     <string name="offers_empty_message">Volte em breve para conferir as ofertas desta loja.</string>
     <string name="discount_label">Desconto: %1$s</string>
     <string name="coupon_label">Cupom: %1$s</string>
-    <string name="copy_coupon">Copiar cupom</string>
-    <string name="open_store">Acessar loja</string>
+    <string name="copy_coupon_and_follow_site">Copiar e seguir para o site</string>
+    <string name="share_offer">Compartilhar oferta</string>
     <string name="store_icon_content_description">Ícone da loja %1$s</string>
     <string name="unknown_store_initial">?</string>
     <plurals name="offer_count">
