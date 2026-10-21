@@ -20,6 +20,13 @@ interface PlatformActions {
      * @param onResult Receives whether a handler successfully accepted the request.
      */
     fun openUrl(url: String, onResult: (Boolean) -> Unit)
+
+    /**
+     * Requests that [text] be shared via the platform share sheet.
+     *
+     * @param text Text message to share.
+     */
+    fun shareText(text: String)
 }
 
 /**
